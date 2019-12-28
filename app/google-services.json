@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "428639830593",
+    "firebase_url": "https://tripforum-c7399.firebaseio.com",
+    "project_id": "tripforum-c7399",
+    "storage_bucket": "tripforum-c7399.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428639830593:android:cdce0e0822d4dbd7303cc0",
+        "android_client_info": {
+          "package_name": "com.lzvitali.tripforum"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "428639830593-fcmpp3ht36g78h00ejr0pj8nepfevkgr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lzvitali.tripforum",
+            "certificate_hash": "f987aeb8e9022ff79dba6077e170394c36370a46"
+          }
+        },
+        {
+          "client_id": "428639830593-sd2qr0u28v8msh326jvbb6lhiae6j05c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyuWBW5q9nmOgPNoan5UiC5yfnvzERxkU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "428639830593-sd2qr0u28v8msh326jvbb6lhiae6j05c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
