@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">TripForum</string>
+    <string name="menu_favorites">Favorites</string>
+    <string name="menu_my_posts">My Posts</string>
+    <string name="menu_add_trip">Add Trip</string>
+    <string name="open">TripForum</string>
+    <string name="close">TripForum</string>
 </resources>
