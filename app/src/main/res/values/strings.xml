@@ -5,4 +5,16 @@
     <string name="menu_add_trip">Add Trip</string>
     <string name="open">TripForum</string>
     <string name="close">TripForum</string>
+    <string name="activity_add_new_trip_titel">Add New Trip</string>
+    <string name="activity_add_new_trip_country">Country</string>
+    <string name="activity_add_new_trip_cities">Cities</string>
+    <string name="activity_add_new_trip_duration">Duration</string>
+    <string name="activity_add_new_trip_categories">Categories:</string>
+    <string name="activity_add_new_trip_your_name">Your name</string>
+    <string name="activity_add_new_trip_your_email">Your email</string>
+    <string name="activity_add_new_trip_add_photo">Add Photo</string>
+    <string name="activity_add_new_trip_cancel">Cancel</string>
+    <string name="activity_add_new_trip_post">Post</string>
+    <string name="activity_main_most_recent">Most Recent</string>
+    <string name="activity_main_search_your_next_trip">Search your next trip</string>
 </resources>

@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#9E5239</color>
-    <color name="colorPrimaryDark">#793D2B</color>
+    <!--color name="colorPrimary">#9E5239</color>
+    <color name="colorPrimaryDark">#793D2B</color-->
+
+    <color name="colorPrimary">#3a0a70</color>
+    <color name="colorPrimaryDark">#5511a3</color>
+
     <color name="colorAccent">#D81B60</color>
     <color name="white">#FFFFFF</color>
     <color name="darkgray">#636161</color>
     <color name="menuHeader">#FDD87F</color>
+    <!--color name="rv_row3">#a7d3ce</color>
+    <color name="rv_row4">#f0e27e</color>
+    <color name="rv_row1">#68deae</color>
+    <color name="rv_row2">#eddb5a</color-->
+
+    <color name="rv_row1">#DDDDDD</color>
+
+
+    <color name="main_background">#749DB1</color>
 </resources>

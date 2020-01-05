@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="population_type_array">
+        <item>Family</item>
+        <item>Young people</item>
+        <item>Adults</item>
+        <item>Any age</item>
+    </string-array>
+</resources>
