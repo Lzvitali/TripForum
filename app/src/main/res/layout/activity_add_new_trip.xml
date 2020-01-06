@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rv_row1"
+    android:background="@drawable/b8_5"
     android:padding="30dp"
     tools:context=".AddNewTrip"
     tools:layout_editor_absoluteX="20dp"
@@ -40,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_add_new_trip_country"
                 android:textColor="@android:color/black"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/editTextCountry"
@@ -62,7 +63,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_add_new_trip_cities"
                 android:textColor="@android:color/black"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/editTextCity1"
@@ -124,7 +126,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_add_new_trip_duration"
                 android:textColor="@android:color/black"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/editTextDuration"
@@ -148,7 +151,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_add_new_trip_categories"
                 android:textColor="@android:color/black"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -184,7 +188,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_add_new_trip_your_name"
                 android:textColor="@android:color/black"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/editTextUserName"
@@ -208,7 +213,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_add_new_trip_your_email"
                 android:textColor="@android:color/black"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/editTextUserEmail"
@@ -226,7 +232,8 @@
             android:layout_height="wrap_content"
             android:text="Your Trip:"
             android:textColor="@android:color/black"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editTextTripDescription"
@@ -252,7 +259,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/activity_add_new_trip_add_photo"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -267,7 +275,8 @@
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
                 android:text="@string/activity_add_new_trip_cancel"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/buttonPost"
@@ -276,7 +285,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
                 android:text="@string/activity_add_new_trip_post"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>

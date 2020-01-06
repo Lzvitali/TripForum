@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayoutRow"
     android:layout_width="match_parent"
-    android:layout_height="170dp"
+    android:layout_height="160dp"
     android:layout_marginBottom="10dp"
     android:background="@color/rv_row1"
     android:orientation="vertical">
@@ -23,8 +23,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -37,17 +38,19 @@
                     android:id="@+id/textViewTripName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="10dp"
                     android:text="Trip to Russia"
                     android:textAlignment="textStart"
                     android:textColor="@android:color/black"
                     android:textSize="22sp" />
             </LinearLayout>
 
-            <TextView
+            <!--TextView
                 android:id="@+id/textView21"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#72000000" />
+                android:background="#72000000" /-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -65,11 +68,11 @@
 
             </LinearLayout>
 
-            <TextView
+            <!--TextView
                 android:id="@+id/textView22"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#72000000" />
+                android:background="#72000000" /-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,11 +90,11 @@
 
             </LinearLayout>
 
-            <TextView
+            <!--TextView
                 android:id="@+id/textView23"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#72000000" />
+                android:background="#72000000" /-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -102,6 +105,7 @@
                     android:id="@+id/textViewTripAuthor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:text="By: Anonymous"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />

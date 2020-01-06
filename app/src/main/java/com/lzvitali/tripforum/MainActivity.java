@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         getViews();
 
-        FirebaseUtil.openFbReference("trips");
+        FirebaseUtil.openFbReference("trips", this);
 
         createMenu();
 
@@ -89,6 +91,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return true;
         }
 
+        if(R.id.btnMenuLogin == item.getItemId())
+        {
+            FirebaseUtil.attachListener();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -118,6 +125,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    // For the top menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_top, menu);
+        return true;
+    }
+
     // End :functions for the menu ----------------------------------------------------------------
 
 }

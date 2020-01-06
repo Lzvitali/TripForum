@@ -2,7 +2,7 @@
 <resources>
     <string-array name="trip_type_array">
         <item>Vacation</item>
-        <item>Young people</item>
+        <item>Romantic</item>
         <item>Extreme</item>
         <item>Cultural</item>
         <item>General</item>

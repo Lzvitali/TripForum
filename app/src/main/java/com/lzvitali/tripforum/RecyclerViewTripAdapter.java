@@ -1,5 +1,7 @@
 package com.lzvitali.tripforum;
 
+import android.os.Build;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,8 +99,8 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
 
         public void bind(Trip trip)
         {
-            String tripName = "Trip to " + trip.getCountryName();
-            String tripCities = "Cities: " + trip.getCity1();
+            String tripName = "<b>" + "Trip to " + trip.getCountryName() + "</b>";
+            String tripCities = "<b>" + "Cities: " + "</b>" + trip.getCity1();
             if(!trip.getCity2().equals(""))
             {
                 tripCities += ", " + trip.getCity2();
@@ -107,23 +109,23 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
             {
                 tripCities += ", " + trip.getCity3();
             }
-            String tripDesc = "Description: " + trip.getDuration() + "days, " +
+            String tripDesc = "<b>" + "Description: " + "</b>" + trip.getDuration() + "days, " +
                     trip.getTripPopulationCategory() + ", " + trip.getTripTypeCategory() + " trip.";
             String tripAuthor;
             if(trip.getCountryName().equals(""))
             {
-                tripAuthor = "By: Anonymous";
+                tripAuthor = "<b>" + "By: " + "</b>" + "Anonymous";
             }
             else
             {
-                tripAuthor = "By: " + trip.getCountryName();
+                tripAuthor = "<b>" + "By: " + "</b>" + trip.getUserName();
             }
 
 
-            textViewTripName.setText(tripName);
-            textViewTripCities.setText(tripCities);
-            textViewTripDescription.setText(tripDesc);
-            textViewTripAuthor.setText(tripAuthor);
+            textViewTripName.setText(Html.fromHtml(tripName, Build.VERSION.SDK_INT));
+            textViewTripCities.setText(Html.fromHtml(tripCities, Build.VERSION.SDK_INT));
+            textViewTripDescription.setText(Html.fromHtml(tripDesc, Build.VERSION.SDK_INT));
+            textViewTripAuthor.setText(Html.fromHtml(tripAuthor, Build.VERSION.SDK_INT));
             showImage(trip.getImageUrl());
 
 
