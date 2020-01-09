@@ -16,7 +16,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
@@ -81,6 +83,9 @@ public class AddNewTrip extends AppCompatActivity
         // get Firebase references from 'FirebaseUtil'
         mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
         mDatabaseReference = FirebaseUtil.mDatabaseReference;
+
+        // turn off the 'ProgressBar'
+        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
 
         // setting the spinners
         // reference: https://developer.android.com/guide/topics/ui/controls/spinner.html
@@ -177,51 +182,6 @@ public class AddNewTrip extends AppCompatActivity
             if(mIsUploadedPicture)
             {
                 Log.i("photo", "postTrip");
-//                StorageReference ref = FirebaseUtil.mStorageRef.child(mImageUri.getLastPathSegment());
-////
-////
-////                ref.putFile(mImageUri).addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
-////                    @Override
-////                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-////                        // was:  //taskSnapshot.getDownloadUrl().toString();
-////                        // reference for change: https://stackoverflow.com/questions/50585334/tasksnapshot-getdownloadurl-method-not-working
-////                        String url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-////                        String pictureName = taskSnapshot.getStorage().getPath();
-////
-////
-////                        mNewTrip.setImageUrl(url);
-////                        mNewTrip.setImageName(pictureName);
-////
-////                        // write to Firebase
-////                        if(mNewTrip.getId() == null)
-////                        {
-////                            mDatabaseReference.push().setValue(mNewTrip);
-////                        }
-////                        else
-////                        {
-////                            mDatabaseReference.child(mNewTrip.getId()).setValue(mNewTrip);
-////                        }
-////
-////                        // through a toast for the user
-////                        Toast.makeText(thisContext, "Your trip uploaded successfully!", Toast.LENGTH_LONG).show();
-////
-////                        // go back to 'MainActivity'
-////                        Intent i = new Intent(thisContext, MainActivity.class);
-////                        startActivity(i);
-////                        Log.i("photo", "onSuccess" + url);
-////                    }
-////                }).addOnFailureListener(new OnFailureListener() {
-////                    @Override
-////                    public void onFailure(@NonNull Exception e) {
-////                        Log.i("photo", "onFailure");
-////                    }
-////                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-////                    @Override
-////                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-////                        Log.i("photo", "onProgress");
-////                    }
-////                });
-
 
                 // reference: https://firebase.google.com/docs/storage/android/upload-files?authuser=0
                 //            https://stackoverflow.com/questions/50554548/error-cannot-find-symbol-method-getdownloadurl-of-type-com-google-firebase-st
@@ -255,6 +215,9 @@ public class AddNewTrip extends AppCompatActivity
                             mDatabaseReference.child(mNewTrip.getId()).setValue(mNewTrip);
                         }
 
+                        // turn off the 'ProgressBar'
+                        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+
                         // through a toast for the user
                         Toast.makeText(thisContext, "Your trip uploaded successfully!", Toast.LENGTH_LONG).show();
 
@@ -270,7 +233,7 @@ public class AddNewTrip extends AppCompatActivity
                     }
                 });
 
-
+                findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
 
             }
 

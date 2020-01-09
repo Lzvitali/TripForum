@@ -1,5 +1,6 @@
 package com.lzvitali.tripforum;
 
+import android.content.Intent;
 import android.os.Build;
 import android.text.Html;
 import android.util.Log;
@@ -153,6 +154,19 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
         @Override
         public void onClick(View v)
         {
+//            Trip tripToShow = mTrips.get(getAdapterPosition());
+//            Intent intent = new Intent(v.getContext(), TripDescriptionActivity.class);
+//            intent.putExtra("Trip", tripToShow);
+//            v.getContext().startActivity(intent);
+
+            //TODO in 'TripDescriptionActivity' activity:
+            // in art 6 in the pluralsight docs:
+            // in 'DealActivity file, get data:
+//            Intent intent = getIntent();
+//            TravelDeal deal = (TravelDeal) intent.getSerializableExtra("Deal");
+//            if (deal==null) {
+//                deal = new TravelDeal();
+//            }
 
         }
     }

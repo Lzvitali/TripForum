@@ -9,15 +9,17 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
+        android:id="@+id/imageViewLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/logo" />
 
     <TextView
+        android:id="@+id/textViewUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:text="Hi, Nata"
+        android:text="Hi!"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@android:color/black"
         android:textSize="18sp" />

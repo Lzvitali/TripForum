@@ -84,8 +84,8 @@
                 </RadioGroup>
 
                 <Button
-                    android:id="@+id/button2"
-                    android:layout_width="45dp"
+                    android:id="@+id/buttonClear"
+                    android:layout_width="44dp"
                     android:layout_height="45dp"
                     android:layout_weight="1"
                     android:text="Clear"

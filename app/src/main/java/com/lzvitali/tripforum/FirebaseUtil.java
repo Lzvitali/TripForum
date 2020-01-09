@@ -2,13 +2,19 @@ package com.lzvitali.tripforum;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -31,13 +37,23 @@ public class FirebaseUtil
     public static FirebaseAuth mFirebaseAuth;
     public static FirebaseAuth.AuthStateListener mAuthListener;
     private static MainActivity caller;
+    public static boolean isUserConnected = false;
 
     public static ArrayList<Trip> mTrips;
+    private static TextView textViewUserName;
 
     private FirebaseUtil(){};
 
-    public static void openFbReference(String ref, MainActivity callerActivity)
+    public static void openFbReference(String ref, final MainActivity callerActivity)
     {
+        caller = callerActivity;
+
+        // get reference for the 'TextView' form the 'nav_header' layout and set it
+        // reference: https://stackoverflow.com/questions/34973456/how-to-change-text-of-a-textview-in-navigation-drawer-header
+        NavigationView navigationView = (NavigationView) caller.findViewById(R.id.navigation);
+        View headerView = navigationView.getHeaderView(0);
+        textViewUserName = (TextView) headerView.findViewById(R.id.textViewUserName);
+
         if (firebaseUtil == null)
         {
             firebaseUtil = new FirebaseUtil();
@@ -46,29 +62,46 @@ public class FirebaseUtil
 
             // add listener for the authentication
             mFirebaseAuth = FirebaseAuth.getInstance();
-            caller = callerActivity;
 
             mAuthListener = new FirebaseAuth.AuthStateListener() {
+                FirebaseUser user;
                 @Override
                 public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                    if (firebaseAuth.getCurrentUser() == null)
+                    if ((user = firebaseAuth.getCurrentUser()) == null)
                     {
                         FirebaseUtil.signIn();
+
                     }
                     else {
+//                        isUserConnected = true;
                         //String userId = firebaseAuth.getUid();
+
+                        // Name, email of the user
+//                        String name = user.getDisplayName();
+//                        String email = user.getEmail();
+//
+//                        textViewUserName.setText("Hi, " + name);
+
+                        //Toast.makeText(caller.getBaseContext(), "Welcome!", Toast.LENGTH_LONG).show();
+
+//                        if(MainActivity.isAddNewTripPressed)
+//                        {
+//                            caller.openActivityAddNewTrip();
+//                        }
+
                     }
-                    Toast.makeText(caller.getBaseContext(), "Welcome!", Toast.LENGTH_LONG).show();
+
                 }
             };
 
+            connectStorage();
         }
 
+        checkIfuserConnected();
 
         mTrips = new ArrayList<Trip>();
         mDatabaseReference = mFirebaseDatabase.getReference().child(ref);
 
-        connectStorage();
     }
 
 
@@ -105,6 +138,27 @@ public class FirebaseUtil
     public static void detachListener()
     {
         mFirebaseAuth.removeAuthStateListener(mAuthListener);
+    }
+
+    public static void checkIfuserConnected()
+    {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null)
+        {
+            // User is signed in
+            isUserConnected = true;
+
+            // set name of the user
+            String name = user.getDisplayName();
+            textViewUserName.setText("Hi, " + name);
+        }
+        else
+        {
+            // No user is signed in
+            isUserConnected = false;
+            textViewUserName.setText("Hi, you");
+
+        }
     }
 
 }
