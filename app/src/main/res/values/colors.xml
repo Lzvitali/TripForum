@@ -16,6 +16,7 @@
     <color name="rv_row2">#eddb5a</color-->
 
     <color name="rv_row1">#DDDDDD</color>
+    <color name="TripDescriptionLayout">#A4DDDDDD</color>
 
 
     <color name="main_background">#749DB1</color>

@@ -127,16 +127,25 @@
                 android:text="@string/activity_add_new_trip_duration"
                 android:textColor="@android:color/black"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:tooltipText="Duration in days" />
 
             <EditText
                 android:id="@+id/editTextDuration"
-                android:layout_width="match_parent"
+                android:layout_width="176dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:paddingStart="5dp"
                 android:textSize="22sp"
                 tools:text="" />
+
+            <TextView
+                android:id="@+id/textViewDays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(days)"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout

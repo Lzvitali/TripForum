@@ -148,11 +148,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle item selection
+        mSelectedItemFromNavigation = item;
         switch (item.getItemId())
         {
             case R.id.nav_add_trip:
                 // go to activity "add trip"
-                mSelectedItemFromNavigation = item;
                 isAddNewTripPressed = true;
 
                 FirebaseUtil.checkIfuserConnected();
@@ -171,9 +171,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 item.setCheckable(true);
                 //return true;
             case R.id.nav_favorites:
-                //TODO add action
-                item.setCheckable(true);
-                //return true;
+//                Intent i = new Intent(this, TripDescriptionActivity.class);
+//                mDrawerLayout.closeDrawer(GravityCompat.START);  // hide the Navigation menu
+//                mSelectedItemFromNavigation.setCheckable(true);  // mark the selection
+//                startActivity(i);
+                return true;
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
