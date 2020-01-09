@@ -7,6 +7,7 @@ import androidx.core.view.GravityCompat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +34,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AddNewTrip extends AppCompatActivity
 {
@@ -66,6 +69,17 @@ public class AddNewTrip extends AppCompatActivity
     private Button buttonPost;
     private Spinner spinnerPopulationType;
     private Spinner spinnerTripType;
+
+    private TextView textViewCountryNameAddTrip;
+    private TextView textViewCitesAddTrip;
+    private TextView textViewDurationAddTrip;
+    private TextView textViewUserNameAddTrip;
+    private TextView textViewUserEmailAddTrip;
+    private TextView textViewDescriptionAddTrip;
+
+    private ImageView imageViewPhotoIndicator;
+
+
 
 
     @Override
@@ -113,6 +127,17 @@ public class AddNewTrip extends AppCompatActivity
             }
         });
 
+        // set 'OnClick' on 'Cancel' button
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                // go back to 'MainActivity'
+                Intent i = new Intent(thisContext, MainActivity.class);
+                startActivity(i);
+            }
+        });
+
 
     }
 
@@ -140,6 +165,14 @@ public class AddNewTrip extends AppCompatActivity
         buttonCancel = (Button) findViewById(R.id.buttonCancel);
         buttonPost = (Button) findViewById(R.id.buttonPost);
 
+        textViewCountryNameAddTrip = (TextView) findViewById(R.id.textViewCountryNameAddTrip);
+        textViewCitesAddTrip = (TextView) findViewById(R.id.textViewCitesAddTrip);
+        textViewDurationAddTrip = (TextView) findViewById(R.id.textViewDurationAddTrip);
+        textViewUserNameAddTrip = (TextView) findViewById(R.id.textViewUserNameAddTrip);
+        textViewUserEmailAddTrip = (TextView) findViewById(R.id.textViewUserEmailAddTrip);
+        textViewDescriptionAddTrip = (TextView) findViewById(R.id.textViewDescriptionAddTrip);
+
+        imageViewPhotoIndicator = (ImageView) findViewById(R.id.imageViewPhotoIndicator);
     }
 
 
@@ -163,21 +196,108 @@ public class AddNewTrip extends AppCompatActivity
         String strEditTextTripDescription = editTextTripDescription.getText().toString();
 
 
-        // TODO add validation checks
         boolean isValid = false;
-//        if()
+        String errorToReport = "";
 
-        isValid = true;  // for delete
-        // End: TODO add validation checks
+        // ------------ check 'editTextCountry' ------------
+        if(strEditTextCountry.equals(""))  //check if 'country' name is empty string
+        {
+            errorToReport = "You must fill the 'Country' field!";
+            textViewCountryNameAddTrip.setTextColor(Color.parseColor("#FFFF0000"));
+        }
+        else if(!strEditTextCountry.matches("[a-zA-Z]+"))  //check if 'country' name contains numbers
+        {
+            errorToReport = "'Country' name field must contain only letters!";
+            textViewCountryNameAddTrip.setTextColor(Color.parseColor("#FFFF0000"));
+        }
+        else
+        {
+            // set to black the color of 'textViewCountryNameAddTrip'
+            textViewCountryNameAddTrip.setTextColor(Color.parseColor("#FF000000"));
+
+            // ------------ check 'editTextCity[1,2,3]' ------------
+            if(strEditTextCity1.equals(""))  //check if 'strEditTextCity1' name is empty string
+            {
+                errorToReport = "You must fill the first 'City' field!";
+                textViewCitesAddTrip.setTextColor(Color.parseColor("#FFFF0000"));
+            }
+            else if(!strEditTextCity1.matches("[a-zA-Z]+")
+                    || ( !strEditTextCity2.equals("") && !strEditTextCity2.matches("[a-zA-Z]+") )
+                    || ( !strEditTextCity3.equals("") && !strEditTextCity3.matches("[a-zA-Z]+")) )
+            {
+                errorToReport = "'City' name field must contain only letters!";
+                textViewCitesAddTrip.setTextColor(Color.parseColor("#FFFF0000"));
+            }
+            else
+            {
+                // set to black the color of 'textViewCountryNameAddTrip'
+                textViewCitesAddTrip.setTextColor(Color.parseColor("#FF000000"));
+
+                // ------------ check 'editTextDuration' ------------
+                if(strEditTextDuration.equals(""))  //check if 'strEditTextDuration' is empty string
+                {
+                    errorToReport = "You must fill the 'Duration' field!";
+                    textViewDurationAddTrip.setTextColor(Color.parseColor("#FFFF0000"));
+                }
+                else if(!strEditTextDuration.matches("[0-9]+"))  //check if 'strEditTextDuration' contains only numbers
+                {
+                    errorToReport = "'Duration' name field must contain only  number!";
+                    textViewDurationAddTrip.setTextColor(Color.parseColor("#FFFF0000"));
+                }
+                else
+                {
+                    // set to black the color of 'textViewDurationAddTrip'
+                    textViewDurationAddTrip.setTextColor(Color.parseColor("#FF000000"));
+
+                    // ------------ check 'strEditTextUserName' ------------
+                    if(!strEditTextCountry.matches("[a-zA-Z]+"))  //check if 'user' name contains numbers
+                    {
+                        errorToReport = "'Yor name' name field must contain only letters!";
+                        textViewUserNameAddTrip.setTextColor(Color.parseColor("#FFFF0000"));
+                    }
+                    else
+                    {
+                        // set to black the color of 'textViewUserNameAddTrip'
+                        textViewUserNameAddTrip.setTextColor(Color.parseColor("#FF000000"));
+
+                        // TODO: add email validation check
+                        if(strEditTextTripDescription.equals(""))  //check if 'strEditTextDuration' is empty string
+                        {
+
+
+                            errorToReport = "You must fill the 'Yor Trip' field!";
+                            textViewDescriptionAddTrip.setTextColor(Color.parseColor("#FFFF0000"));
+                        }
+                        else
+                        {
+                            // set to black the color of 'textViewDescriptionAddTrip'
+                            textViewDescriptionAddTrip.setTextColor(Color.parseColor("#FF000000"));
+
+                            isValid = true;
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+
 
         if(isValid)
         {
+            // disable all the buttons
+            buttonPost.setEnabled(false);
+            buttonCancel.setEnabled(false);
+            buttonAddPhoto.setEnabled(false);
+
             // construct the 'Trip' instance
             mNewTrip = new Trip(strEditTextCountry, strEditTextCity1, strEditTextCity2,
                     strEditTextCity3, strEditTextDuration, strSpinnerPopulationType,
                     strSpinnerTripType, strEditTextUserName, strEditTextUserEmail,
                     strEditTextTripDescription);
 
+            // TODO: edd 'else' for 'if mIsUploadedPicture == false'
             // upload the photo (if user uploaded)
             if(mIsUploadedPicture)
             {
@@ -205,26 +325,15 @@ public class AddNewTrip extends AppCompatActivity
                             Uri downloadUri = task.getResult();
                             mNewTrip.setImageUrl(downloadUri.toString());
 
-                        // write to Firebase
-                        if(mNewTrip.getId() == null)
-                        {
-                            mDatabaseReference.push().setValue(mNewTrip);
-                        }
-                        else
-                        {
-                            mDatabaseReference.child(mNewTrip.getId()).setValue(mNewTrip);
-                        }
+                            //TODO: add the next part to the else (?)
 
-                        // turn off the 'ProgressBar'
-                        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                            // write the new trip to Firebase DB
+                            writeToFireBaseDB();
 
-                        // through a toast for the user
-                        Toast.makeText(thisContext, "Your trip uploaded successfully!", Toast.LENGTH_LONG).show();
+                            // turn off the 'ProgressBar'
+                            findViewById(R.id.loadingPanel).setVisibility(View.GONE);
 
-                        // go back to 'MainActivity'
-                        Intent i = new Intent(thisContext, MainActivity.class);
-                        startActivity(i);
-                        Log.i("photo", "onSuccess" + downloadUri.toString());
+                            Log.i("photo", "onSuccess" + downloadUri.toString());
 
                         } else {
                             // Handle failures
@@ -236,11 +345,16 @@ public class AddNewTrip extends AppCompatActivity
                 findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
 
             }
+            else
+            {
+                // write the new trip to Firebase (when no image was uploaded)
+                writeToFireBaseDB();
+            }
 
-
-
-
-
+        }
+        else
+        {
+            Toast.makeText(thisContext, errorToReport, Toast.LENGTH_LONG).show();
         }
 
 
@@ -255,7 +369,36 @@ public class AddNewTrip extends AppCompatActivity
             mImageUri = data.getData();
             Log.i("photo", "onActivityResult");
             mIsUploadedPicture = true;
+
+            imageViewPhotoIndicator.setImageResource(R.drawable.remove_photo);
         }
+    }
+
+    public void removePhoto(View view)
+    {
+        mImageUri = null;
+        mIsUploadedPicture = false;
+        imageViewPhotoIndicator.setImageResource(R.drawable.no_photo);
+    }
+
+    private void writeToFireBaseDB()
+    {
+        // write to Firebase
+        if(mNewTrip.getId() == null)
+        {
+            mDatabaseReference.push().setValue(mNewTrip);
+        }
+        else
+        {
+            mDatabaseReference.child(mNewTrip.getId()).setValue(mNewTrip);
+        }
+
+        // through a toast for the user
+        Toast.makeText(thisContext, "Your trip uploaded successfully!", Toast.LENGTH_LONG).show();
+
+        // go back to 'MainActivity'
+        Intent i = new Intent(thisContext, MainActivity.class);
+        startActivity(i);
     }
 
     //-------------------------- functions for the spinners ----------------------------------------
