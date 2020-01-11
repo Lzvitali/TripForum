@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/b8_5"
-    android:padding="30dp"
+    android:padding="15dp"
     tools:context=".AddNewTrip"
     tools:layout_editor_absoluteX="20dp"
     tools:layout_editor_absoluteY="72dp">
@@ -15,6 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/TripDescriptionLayout"
+        android:padding="15dp"
         tools:layout_editor_absoluteX="10dp"
         tools:layout_editor_absoluteY="10dp">
 

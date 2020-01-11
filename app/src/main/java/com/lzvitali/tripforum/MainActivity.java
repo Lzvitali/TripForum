@@ -32,8 +32,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 
 import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -46,13 +51,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView mNavigationView;
 
     private RecyclerView recyclerView;
-    RecyclerViewTripAdapter mAdapter;
+    private RecyclerViewTripAdapter mAdapter;
+    private ChildEventListener mChildListener;
+    ArrayList<Trip> mTrips;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mDatabaseReference;
 
     public final Context mContext = this;
 
     public static boolean isAddNewTripPressed = false;
     MenuItem mSelectedItemFromNavigation;
 
+    private Button buttonSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -68,20 +78,85 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         FirebaseUtil.openFbReference("trips", this);
 
+        mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
+        mDatabaseReference = FirebaseUtil.mDatabaseReference;
+        this.mTrips = FirebaseUtil.mTrips;
+
         createMenu();
 
         initRecyclerView();
+
+        // set 'OnCLick' on 'Add Photo' button
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                //searchUserTrip();
+            }
+        });
     }
 
 
     private void getViews()
     {
         recyclerView = (RecyclerView)findViewById(R.id.recyclerViewMainActivity);
+        buttonSearch= (Button)findViewById(R.id.buttonSearch);
     }
 
 
+//    private void searchUserTrip()
+//    {
+//        // SELECT * FROM Artists WHERE country = "India"
+//        Query query3 = FirebaseDatabase.getInstance().getReference("trips")
+//                .orderByChild("countryName")
+//                .equalTo("Russia");
+//
+//        query3.addChildEventListener(mChildListener);
+//
+//
+//    }
+
+    private void addListenerForFirebase()
+    {
+        mChildListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                //mTrips.clear();
+                Trip trip = dataSnapshot.getValue(Trip.class);
+                trip.setId(dataSnapshot.getKey());
+                mTrips.add(trip);
+                //notifyItemInserted(mTrips.size()-1);
+                mAdapter.notifyItemInserted(mTrips.size()-1);
+                //mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        mDatabaseReference.addChildEventListener(mChildListener);
+    }
+
     private void initRecyclerView()
     {
+        addListenerForFirebase();
         mAdapter = new RecyclerViewTripAdapter();
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -233,6 +308,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
     }
+
 
 
 

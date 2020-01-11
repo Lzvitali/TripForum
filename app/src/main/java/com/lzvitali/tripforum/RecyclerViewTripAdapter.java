@@ -30,7 +30,7 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
     ArrayList<Trip> mTrips;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
-    private ChildEventListener mChildListener;
+
 
 
     // -----------------------------------Constructor---------------------------------------------
@@ -40,36 +40,7 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
         mDatabaseReference = FirebaseUtil.mDatabaseReference;
         this.mTrips = FirebaseUtil.mTrips;
 
-        mChildListener = new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Trip trip = dataSnapshot.getValue(Trip.class);
-                trip.setId(dataSnapshot.getKey());
-                mTrips.add(trip);
-                notifyItemInserted(mTrips.size()-1);
-            }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-        mDatabaseReference.addChildEventListener(mChildListener);
     }
     // End: Constructor----------------------------------------------------------------------------
 
@@ -110,10 +81,10 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
             {
                 tripCities += ", " + trip.getCity3();
             }
-            String tripDesc = "<b>" + "Description: " + "</b>" + trip.getDuration() + "days, " +
+            String tripDesc = "<b>" + "Description: " + "</b>" + trip.getDuration() + " days, " +
                     trip.getTripPopulationCategory() + ", " + trip.getTripTypeCategory() + " trip.";
             String tripAuthor;
-            if(trip.getCountryName().equals(""))
+            if(trip.getUserName().equals(""))
             {
                 tripAuthor = "<b>" + "By: " + "</b>" + "Anonymous";
             }
@@ -154,20 +125,10 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
         @Override
         public void onClick(View v)
         {
-//            Trip tripToShow = mTrips.get(getAdapterPosition());
-//            Intent intent = new Intent(v.getContext(), TripDescriptionActivity.class);
-//            intent.putExtra("Trip", tripToShow);
-//            v.getContext().startActivity(intent);
-
-            //TODO in 'TripDescriptionActivity' activity:
-            // in art 6 in the pluralsight docs:
-            // in 'DealActivity file, get data:
-//            Intent intent = getIntent();
-//            TravelDeal deal = (TravelDeal) intent.getSerializableExtra("Deal");
-//            if (deal==null) {
-//                deal = new TravelDeal();
-//            }
-
+            Trip tripToShow = mTrips.get(getAdapterPosition());
+            Intent intent = new Intent(v.getContext(), TripDescriptionActivity.class);
+            intent.putExtra("Trip", tripToShow);
+            v.getContext().startActivity(intent);
         }
     }
     // End: Inner class: TripViewHolder------------------------------------------------------------

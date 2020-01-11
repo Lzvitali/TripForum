@@ -10,8 +10,8 @@
     <string name="activity_add_new_trip_cities">Cities</string>
     <string name="activity_add_new_trip_duration">Duration</string>
     <string name="activity_add_new_trip_categories">Categories:</string>
-    <string name="activity_add_new_trip_your_name">Your name</string>
-    <string name="activity_add_new_trip_your_email">Your email</string>
+    <string name="activity_add_new_trip_your_name">*Your name</string>
+    <string name="activity_add_new_trip_your_email">*Your email</string>
     <string name="activity_add_new_trip_add_photo">Add Photo</string>
     <string name="activity_add_new_trip_cancel">Cancel</string>
     <string name="activity_add_new_trip_post">Post</string>
