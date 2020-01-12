@@ -297,7 +297,7 @@ public class AddNewTrip extends AppCompatActivity
                     strSpinnerTripType, strEditTextUserName, strEditTextUserEmail,
                     strEditTextTripDescription);
 
-            // TODO: edd 'else' for 'if mIsUploadedPicture == false'
+
             // upload the photo (if user uploaded)
             if(mIsUploadedPicture)
             {
@@ -324,8 +324,6 @@ public class AddNewTrip extends AppCompatActivity
                         if (task.isSuccessful()) {
                             Uri downloadUri = task.getResult();
                             mNewTrip.setImageUrl(downloadUri.toString());
-
-                            //TODO: add the next part to the else (?)
 
                             // write the new trip to Firebase DB
                             writeToFireBaseDB();

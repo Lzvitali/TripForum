@@ -17,4 +17,14 @@
     <string name="activity_add_new_trip_post">Post</string>
     <string name="activity_main_most_recent">Most Recent</string>
     <string name="activity_main_search_your_next_trip">Search your next trip</string>
+    <string name="activity_main_clear">Clear</string>
+    <string name="activity_main_family">Family</string>
+    <string name="activity_main_young">Young</string>
+    <string name="activity_main_adults">Adults</string>
+    <string name="activity_main_any_age">Any age</string>
+    <string name="activity_main_vacation">Vacation</string>
+    <string name="activity_main_romantic">Romantic</string>
+    <string name="activity_main_extreme">Extreme</string>
+    <string name="activity_main_cultural">Cultural</string>
+    <string name="activity_main_city">City</string>
 </resources>

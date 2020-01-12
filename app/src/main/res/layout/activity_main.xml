@@ -40,7 +40,7 @@
                 android:paddingRight="60dp">
 
                 <EditText
-                    android:id="@+id/editText2"
+                    android:id="@+id/editTextSearch"
                     android:layout_width="221dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -63,23 +63,24 @@
                 android:paddingRight="60dp">
 
                 <RadioGroup
+                    android:id="@+id/radioGroup"
                     android:layout_width="215dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/radioButton"
+                        android:id="@+id/radioButtonCountry"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
                         android:text="@string/activity_add_new_trip_country"
                         android:textStyle="bold" />
 
                     <RadioButton
-                        android:id="@+id/radioButton2"
+                        android:id="@+id/radioButtonCity"
                         android:layout_width="83dp"
                         android:layout_height="wrap_content"
-                        android:text="City"
+                        android:text="@string/activity_main_city"
                         android:textStyle="bold" />
                 </RadioGroup>
 
@@ -88,7 +89,7 @@
                     android:layout_width="44dp"
                     android:layout_height="45dp"
                     android:layout_weight="1"
-                    android:text="Clear"
+                    android:text="@string/activity_main_clear"
                     android:textAllCaps="false"
                     android:textSize="13sp" />
 
@@ -102,38 +103,38 @@
                 android:paddingRight="20dp">
 
                 <CheckBox
-                    android:id="@+id/checkBox2"
+                    android:id="@+id/checkBoxFamily"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Family"
+                    android:text="@string/activity_main_family"
                     android:textSize="12dp"
                     android:textStyle="bold" />
 
                 <CheckBox
-                    android:id="@+id/checkBox3"
+                    android:id="@+id/checkBoxYoung"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Young"
+                    android:text="@string/activity_main_young"
                     android:textSize="12dp"
                     android:textStyle="bold" />
 
                 <CheckBox
-                    android:id="@+id/checkBox4"
+                    android:id="@+id/checkBoxAdults"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Adults"
+                    android:text="@string/activity_main_adults"
                     android:textSize="12dp"
                     android:textStyle="bold" />
 
                 <CheckBox
-                    android:id="@+id/checkBox5"
+                    android:id="@+id/checkBoxAnyAge"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Any age"
+                    android:text="@string/activity_main_any_age"
                     android:textSize="12dp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -146,38 +147,38 @@
                 android:paddingRight="20dp">
 
                 <CheckBox
-                    android:id="@+id/checkBox6"
+                    android:id="@+id/checkBoxVacation"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Vacation"
+                    android:text="@string/activity_main_vacation"
                     android:textSize="12dp"
                     android:textStyle="bold" />
 
                 <CheckBox
-                    android:id="@+id/checkBox7"
+                    android:id="@+id/checkBoxRomantic"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Romantic"
+                    android:text="@string/activity_main_romantic"
                     android:textSize="12dp"
                     android:textStyle="bold" />
 
                 <CheckBox
-                    android:id="@+id/checkBox8"
+                    android:id="@+id/checkBoxExtreme"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Extreme"
+                    android:text="@string/activity_main_extreme"
                     android:textSize="12dp"
                     android:textStyle="bold" />
 
                 <CheckBox
-                    android:id="@+id/checkBox9"
+                    android:id="@+id/checkBoxCultural"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Cultural"
+                    android:text="@string/activity_main_cultural"
                     android:textSize="12dp"
                     android:textStyle="bold" />
             </LinearLayout>

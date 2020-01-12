@@ -100,11 +100,6 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
             textViewTripAuthor.setText(Html.fromHtml(tripAuthor, Build.VERSION.SDK_INT));
             showImage(trip.getImageUrl());
 
-
-//            if(setSecondBackground)
-//            {
-//                linearLayoutRow.setBackgroundResource(R.color.rv_row2);
-//            }
         }
 
 
