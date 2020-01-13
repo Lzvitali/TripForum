@@ -473,10 +473,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 item.setCheckable(true);
                 //return true;
             case R.id.nav_favorites:
-//                Intent i = new Intent(this, TripDescriptionActivity.class);
-//                mDrawerLayout.closeDrawer(GravityCompat.START);  // hide the Navigation menu
-//                mSelectedItemFromNavigation.setCheckable(true);  // mark the selection
-//                startActivity(i);
+                Intent i = new Intent(this, FavoritesPostsActivity.class);
+                mDrawerLayout.closeDrawer(GravityCompat.START);  // hide the Navigation menu
+                mSelectedItemFromNavigation.setCheckable(true);  // mark the selection
+                startActivity(i);
                 return true;
         }
 

@@ -117,13 +117,14 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
         }
 
 
+        // open activity with description about the clicked trip row
         @Override
         public void onClick(View v)
         {
             Trip tripToShow = mTrips.get(getAdapterPosition());
             Intent intent = new Intent(v.getContext(), TripDescriptionActivity.class);
             intent.putExtra("Trip", tripToShow);
-            v.getContext().startActivity(intent);
+            v.getContext().startActivity(intent);//open activity and send object to this activity
         }
     }
     // End: Inner class: TripViewHolder------------------------------------------------------------

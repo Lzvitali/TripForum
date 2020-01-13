@@ -96,7 +96,7 @@
             android:id="@+id/imageViewTripDescrip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/logo" />
+            app:srcCompat="@mipmap/general_img" />
 
 
     </LinearLayout>
