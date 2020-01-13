@@ -41,7 +41,7 @@
                 android:id="@+id/buttonFavorites"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:onClick="addToFavorites"
+                android:onClick="favoritesButtonClicked"
                 android:src="@drawable/ic_not_favorites" />
         </LinearLayout>
 
@@ -96,7 +96,7 @@
             android:id="@+id/imageViewTripDescrip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/general_img" />
+            app:srcCompat="@drawable/g5" />
 
 
     </LinearLayout>

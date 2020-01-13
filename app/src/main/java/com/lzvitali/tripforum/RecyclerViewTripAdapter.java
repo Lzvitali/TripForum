@@ -30,16 +30,17 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
     ArrayList<Trip> mTrips;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
+    String mClassToReturn;
 
 
 
     // -----------------------------------Constructor---------------------------------------------
-    public RecyclerViewTripAdapter()
+    public RecyclerViewTripAdapter(String classToReturn)
     {
         mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
         mDatabaseReference = FirebaseUtil.mDatabaseReference;
         this.mTrips = FirebaseUtil.mTrips;
-
+        this.mClassToReturn = classToReturn;
 
     }
     // End: Constructor----------------------------------------------------------------------------
@@ -52,7 +53,7 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
         TextView textViewTripCities;
         TextView textViewTripDescription;
         TextView textViewTripAuthor;
-        ImageView imageViewTripPhoto;
+        public ImageView imageViewTripPhoto;
         LinearLayout linearLayoutRow;
 
 
@@ -68,6 +69,7 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
 
             itemView.setOnClickListener(this);
         }
+
 
         public void bind(Trip trip)
         {
@@ -106,6 +108,8 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
         private void showImage(String url)
         {
             Log.i("photo", "showImage " + url);
+            //imageViewTripPhoto.setImageDrawable (null);
+            //Picasso.get().cancelRequest(imageViewTripPhoto);
             if (url != null && !url.isEmpty())
             {
                 Picasso.get()
@@ -113,6 +117,7 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
                         .resize(140, 140)
                         .centerCrop()
                         .into(imageViewTripPhoto);
+
             }
         }
 
@@ -124,11 +129,11 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
             Trip tripToShow = mTrips.get(getAdapterPosition());
             Intent intent = new Intent(v.getContext(), TripDescriptionActivity.class);
             intent.putExtra("Trip", tripToShow);
+            intent.putExtra("class to return", mClassToReturn);
             v.getContext().startActivity(intent);//open activity and send object to this activity
         }
     }
     // End: Inner class: TripViewHolder------------------------------------------------------------
-
 
 
 
@@ -145,6 +150,7 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
     public void onBindViewHolder(@NonNull TripViewHolder holder, int position)
     {
         Trip deal = mTrips.get(position);
+        //Picasso.get().cancelRequest(holder.imageViewTripPhoto);
         holder.bind(deal);
     }
 

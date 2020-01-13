@@ -79,7 +79,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private CheckBox checkBoxExtreme;
     private CheckBox checkBoxCultural;
     private EditText editTextSearch;
-    CheckBox[] mCheckBoxes;
+    private CheckBox[] mCheckBoxes;
+
+    TextView textViewResultTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -103,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         initRecyclerView();
 
+        // TODO: delete this array if it will not be used
         mCheckBoxes = new CheckBox[8];
         mCheckBoxes[0] = checkBoxFamily;
         mCheckBoxes[1] = checkBoxYoung;
@@ -115,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-                // set 'OnCLick' on 'Add Photo' button
+        // set 'OnCLick' on 'search' button
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -134,9 +137,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 else
                 {
+                    // take string from 'strings.xml': https://stackoverflow.com/questions/7493287/android-how-do-i-get-string-from-resources-using-its-name
+                    textViewResultTitle.setText(getResources().getString(R.string.activity_main_your_search_results));
                     ArrayList<QueryDataObject> selectedItemsArr;
                     selectedItemsArr = getSelectedItems();
                     searchUserTrip(selectedItemsArr);
+                }
+            }
+        });
+
+        // set 'OnCLick' on 'Clear' button
+        buttonClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                if(editTextSearch.getText().toString().equals("")
+                    && !checkBoxFamily.isChecked() && !checkBoxYoung.isChecked()
+                    && !checkBoxAdults.isChecked() && !checkBoxAnyAge.isChecked()
+                    && !checkBoxVacation.isChecked() && !checkBoxRomantic.isChecked()
+                    && !checkBoxExtreme.isChecked() && !checkBoxCultural.isChecked())
+                {
+                Toast.makeText(mContext, "You didn't searched anything", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    clearSearch();
                 }
             }
         });
@@ -146,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void initRecyclerView()
     {
         addListenerForFirebase();
-        mAdapter = new RecyclerViewTripAdapter();
+        mAdapter = new RecyclerViewTripAdapter("MainActivity");
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -201,8 +226,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         checkBoxCultural = (CheckBox)findViewById(R.id.checkBoxCultural);
         radioGroup = (RadioGroup)findViewById(R.id.radioGroup);
         editTextSearch = (EditText)findViewById(R.id.editTextSearch);
+        textViewResultTitle = (TextView)findViewById(R.id.textViewResultTitle);
 
     }
+
+    private void clearSearch()
+    {
+        radioGroup.clearCheck();
+        checkBoxFamily.setChecked(false);
+        checkBoxAdults.setChecked(false);
+        checkBoxAnyAge.setChecked(false);
+        checkBoxYoung.setChecked(false);
+        checkBoxVacation.setChecked(false);
+        checkBoxRomantic.setChecked(false);
+        checkBoxExtreme.setChecked(false);
+        checkBoxCultural.setChecked(false);
+        editTextSearch.setText("");
+
+        // take string from 'strings.xml': https://stackoverflow.com/questions/7493287/android-how-do-i-get-string-from-resources-using-its-name
+        textViewResultTitle.setText(getResources().getString(R.string.activity_main_most_recent));
+
+        // reset the recycleView
+        mTrips.clear();
+        addListenerForFirebase();
+
+    }
+
 
 
     private void searchUserTrip(ArrayList<QueryDataObject> selectedItemsArr)
@@ -310,6 +359,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         };
+
         mDatabaseReference.addChildEventListener(mChildListener);
     }
 

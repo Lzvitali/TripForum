@@ -16,6 +16,7 @@
     <string name="activity_add_new_trip_cancel">Cancel</string>
     <string name="activity_add_new_trip_post">Post</string>
     <string name="activity_main_most_recent">Most Recent</string>
+    <string name="activity_main_your_search_results">Your search results</string>
     <string name="activity_main_search_your_next_trip">Search your next trip</string>
     <string name="activity_main_clear">Clear</string>
     <string name="activity_main_family">Family</string>
@@ -27,4 +28,5 @@
     <string name="activity_main_extreme">Extreme</string>
     <string name="activity_main_cultural">Cultural</string>
     <string name="activity_main_city">City</string>
+    <string name="activity_favorites_posts_favorites">Favorites</string>
 </resources>
