@@ -26,7 +26,8 @@ import java.util.ArrayList;
 
 public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTripAdapter.TripViewHolder>
 {
-
+    static final String EXTRA_TRIP = "Trip";
+    static final String EXTRA_CLASS_TO_RETURN = "class to return";
     ArrayList<Trip> mTrips;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
@@ -108,8 +109,9 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
         private void showImage(String url)
         {
             Log.i("photo", "showImage " + url);
-            //imageViewTripPhoto.setImageDrawable (null);
-            //Picasso.get().cancelRequest(imageViewTripPhoto);
+            imageViewTripPhoto.setImageDrawable (null);
+            imageViewTripPhoto.setImageResource(R.drawable.g5);
+            Picasso.get().cancelRequest(imageViewTripPhoto);
             if (url != null && !url.isEmpty())
             {
                 Picasso.get()
@@ -128,8 +130,8 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
         {
             Trip tripToShow = mTrips.get(getAdapterPosition());
             Intent intent = new Intent(v.getContext(), TripDescriptionActivity.class);
-            intent.putExtra("Trip", tripToShow);
-            intent.putExtra("class to return", mClassToReturn);
+            intent.putExtra(EXTRA_TRIP, tripToShow);
+            intent.putExtra(EXTRA_CLASS_TO_RETURN, mClassToReturn);
             v.getContext().startActivity(intent);//open activity and send object to this activity
         }
     }

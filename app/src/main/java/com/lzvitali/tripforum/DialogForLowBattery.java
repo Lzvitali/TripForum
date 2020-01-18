@@ -1,0 +1,53 @@
+package com.lzvitali.tripforum;
+
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
+
+public class DialogForLowBattery extends DialogFragment
+{
+    // default constructor
+    public DialogForLowBattery()
+    {
+
+    }
+
+    // another constructor
+    public DialogForLowBattery(String title)
+    {
+        Bundle args = new Bundle();
+        args.putString("TitleKey", title);
+
+        setArguments(args);
+    }
+
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        AlertDialog.Builder dlg = new  AlertDialog.Builder(getActivity());
+
+        Bundle bndl = getArguments();
+        String title = bndl.getString("TitleKey", " ");
+
+        dlg.setTitle(title);
+        dlg.setMessage("Your battery is low percentage (30%)");
+
+        dlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // TODO: add action
+            }
+        });
+
+
+        return dlg.create();
+    }
+
+
+}

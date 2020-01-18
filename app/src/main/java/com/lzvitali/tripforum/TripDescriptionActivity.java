@@ -17,8 +17,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-public class TripDescriptionActivity extends AppCompatActivity
+public class TripDescriptionActivity extends AppSuperClass
 {
+
+    static final String EXTRA_TRIP = "Trip";
+    static final String EXTRA_CLASS_TO_RETURN = "class to return";
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
@@ -79,7 +82,7 @@ public class TripDescriptionActivity extends AppCompatActivity
         {
             case android.R.id.home:
                 Intent intent = getIntent();
-                String classToReturn = (String) intent.getSerializableExtra("class to return");
+                String classToReturn = (String) intent.getSerializableExtra(EXTRA_CLASS_TO_RETURN);
 
                 if(classToReturn.equals("MainActivity"))
                 {
@@ -98,11 +101,13 @@ public class TripDescriptionActivity extends AppCompatActivity
     }
 
 
-    // set information about trip in to xml
+    /**
+     * set information about trip in to xml
+     */
     private void setTripDescription()
     {
         Intent intent = getIntent();
-        mTripToShow = (Trip) intent.getSerializableExtra("Trip");
+        mTripToShow = (Trip) intent.getSerializableExtra(EXTRA_TRIP);
         if (mTripToShow ==null) {
             mTripToShow = new Trip();
         }
@@ -157,7 +162,10 @@ public class TripDescriptionActivity extends AppCompatActivity
         }
     }
 
-    // "on click' on "heart" -- add this trip to favorites or remove
+    /**
+     * 'on click' on "heart" -- add this trip to favorites or remove
+     * @param view
+     */
     public void favoritesButtonClicked(View view)
     {
         // change picture for each click reference: https://stackoverflow.com/questions/19482272/how-to-check-which-image-is-linked-to-imageview-in-android
@@ -174,7 +182,9 @@ public class TripDescriptionActivity extends AppCompatActivity
     }
 
 
-    // save this trip in sp memory for favorites trips
+    /**
+     * save this trip in sp memory for favorites trips
+     */
     private void removeFromFavorites()
     {
        // SharedPreferences mSharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
@@ -195,7 +205,9 @@ public class TripDescriptionActivity extends AppCompatActivity
 
     }
 
-    // save this trip in sp memory for favorites trips
+    /**
+     * save this trip in sp memory for favorites trips
+     */
     public void saveDataForFavorites()
     {
         mEditor = mSharedPreferences.edit();
@@ -213,7 +225,10 @@ public class TripDescriptionActivity extends AppCompatActivity
 }
 
 
-    //func to show image
+    /**
+     * func to show image
+     * @param url of the image
+     */
     private void showImage(String url) {
         if (url != null && url.isEmpty() == false) {
             int width = Resources.getSystem().getDisplayMetrics().widthPixels;

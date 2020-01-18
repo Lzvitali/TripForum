@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class FavoritesPostsActivity extends AppCompatActivity
+public class FavoritesPostsActivity extends AppSuperClass
 {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;

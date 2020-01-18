@@ -37,7 +37,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AddNewTrip extends AppCompatActivity
+public class AddNewTrip extends AppSuperClass
 {
     // for debug
     // private String mTripType;
@@ -45,6 +45,11 @@ public class AddNewTrip extends AppCompatActivity
     // End: for debug
 
     private static final int PICTURE_RESULT = 42; //the answer to everything
+
+    static final String EXTRA_TRIP_FOR_UPLOAD_SERVICE = "Trip for upload";
+    static final String EXTRA_IMAGE_URI_FOR_UPLOAD_SERVICE = "image for upload";
+    static final String EXTRA_FLAG_FOR_UPLOAD_SERVICE = "flag for upload";  // 'true' if there is image
+                                                                            // 'false if no image
 
     // members
     private FirebaseDatabase mFirebaseDatabase;
@@ -195,7 +200,7 @@ public class AddNewTrip extends AppCompatActivity
         String strEditTextUserEmail = editTextUserEmail.getText().toString();
         String strEditTextTripDescription = editTextTripDescription.getText().toString();
 
-
+        // check the validation of user's input
         boolean isValid = false;
         String errorToReport = "";
 
@@ -298,56 +303,27 @@ public class AddNewTrip extends AppCompatActivity
                     strEditTextTripDescription);
 
 
+            // make the upload of the 'Trip' with service
+            Intent serviceIntent = new Intent(this, TripUploadService.class);
+            serviceIntent.putExtra(EXTRA_FLAG_FOR_UPLOAD_SERVICE, mIsUploadedPicture);
+
             // upload the photo (if user uploaded)
             if(mIsUploadedPicture)
             {
                 Log.i("photo", "postTrip");
 
-                // reference: https://firebase.google.com/docs/storage/android/upload-files?authuser=0
-                //            https://stackoverflow.com/questions/50554548/error-cannot-find-symbol-method-getdownloadurl-of-type-com-google-firebase-st
-                final StorageReference ref = FirebaseUtil.mStorageRef.child(mImageUri.getLastPathSegment());
-                UploadTask  uploadTask = ref.putFile(mImageUri);
-
-                Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                    @Override
-                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                        if (!task.isSuccessful()) {
-                            throw task.getException();
-                        }
-                        //ref.getName();
-                        // Continue with the task to get the download URL
-                        return ref.getDownloadUrl();
-                    }
-                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        if (task.isSuccessful()) {
-                            Uri downloadUri = task.getResult();
-                            mNewTrip.setImageUrl(downloadUri.toString());
-
-                            // write the new trip to Firebase DB
-                            writeToFireBaseDB();
-
-                            // turn off the 'ProgressBar'
-                            findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-
-                            Log.i("photo", "onSuccess" + downloadUri.toString());
-
-                        } else {
-                            // Handle failures
-                            // ...
-                        }
-                    }
-                });
+                serviceIntent.putExtra(EXTRA_TRIP_FOR_UPLOAD_SERVICE, mNewTrip);
+                serviceIntent.putExtra(EXTRA_IMAGE_URI_FOR_UPLOAD_SERVICE, mImageUri);
 
                 findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
 
             }
             else
             {
-                // write the new trip to Firebase (when no image was uploaded)
-                writeToFireBaseDB();
+                serviceIntent.putExtra(EXTRA_TRIP_FOR_UPLOAD_SERVICE, mNewTrip);
             }
+
+            startService(serviceIntent);
 
         }
         else
@@ -363,6 +339,7 @@ public class AddNewTrip extends AppCompatActivity
     {
         super.onActivityResult(requestCode, resultCode, data);
 
+        // receive the photo the user uploaded
         if (requestCode == PICTURE_RESULT && resultCode == RESULT_OK) {
             mImageUri = data.getData();
             Log.i("photo", "onActivityResult");
@@ -372,13 +349,24 @@ public class AddNewTrip extends AppCompatActivity
         }
     }
 
+    /**
+     * will remove the url of the photo that the user uploaded
+     * 'onClick' function
+     * @param view
+     */
     public void removePhoto(View view)
     {
-        mImageUri = null;
-        mIsUploadedPicture = false;
-        imageViewPhotoIndicator.setImageResource(R.drawable.no_photo);
+        if(mIsUploadedPicture)
+        {
+            mImageUri = null;
+            mIsUploadedPicture = false;
+            imageViewPhotoIndicator.setImageResource(R.drawable.no_photo);
+        }
     }
 
+    /**
+     * Write the user input to the Firebase-database
+     */
     private void writeToFireBaseDB()
     {
         // write to Firebase
@@ -398,6 +386,7 @@ public class AddNewTrip extends AppCompatActivity
         Intent i = new Intent(thisContext, MainActivity.class);
         startActivity(i);
     }
+
 
     //-------------------------- functions for the spinners ----------------------------------------
     public void setSpinnerPopulationTypeItems()

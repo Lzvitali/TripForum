@@ -1,7 +1,6 @@
 package com.lzvitali.tripforum;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -11,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,7 +20,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -43,7 +41,7 @@ import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+public class MainActivity extends AppSuperClass implements NavigationView.OnNavigationItemSelectedListener
 {
 
     private static final int RC_SIGN_IN = 123;
@@ -79,9 +77,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private CheckBox checkBoxExtreme;
     private CheckBox checkBoxCultural;
     private EditText editTextSearch;
-    private CheckBox[] mCheckBoxes;
 
-    TextView textViewResultTitle;
+    private TextView textViewResultTitle;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -104,18 +104,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         createMenu();
 
         initRecyclerView();
-
-        // TODO: delete this array if it will not be used
-        mCheckBoxes = new CheckBox[8];
-        mCheckBoxes[0] = checkBoxFamily;
-        mCheckBoxes[1] = checkBoxYoung;
-        mCheckBoxes[2] = checkBoxAdults;
-        mCheckBoxes[3] = checkBoxAnyAge;
-        mCheckBoxes[4] = checkBoxVacation;
-        mCheckBoxes[5] = checkBoxRomantic;
-        mCheckBoxes[6] = checkBoxExtreme;
-        mCheckBoxes[7] = checkBoxCultural;
-
 
 
         // set 'OnCLick' on 'search' button
@@ -140,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     // take string from 'strings.xml': https://stackoverflow.com/questions/7493287/android-how-do-i-get-string-from-resources-using-its-name
                     textViewResultTitle.setText(getResources().getString(R.string.activity_main_your_search_results));
                     ArrayList<QueryDataObject> selectedItemsArr;
-                    selectedItemsArr = getSelectedItems();
+                    selectedItemsArr = getSelectedRadioButtonsItems();
                     searchUserTrip(selectedItemsArr);
                 }
             }
@@ -176,7 +164,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private ArrayList<QueryDataObject> getSelectedItems()
+    /**
+     * construct an ArrayList<QueryDataObject> of the content of the selected radio button
+     * if no one selected a there will be one object to indicate that situation
+     * @return ArrayList<QueryDataObject> of selected radio buttons
+     */
+    private ArrayList<QueryDataObject> getSelectedRadioButtonsItems()
     {
         ArrayList<QueryDataObject> selectedItemsArr = new ArrayList<QueryDataObject>();
 
@@ -230,6 +223,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    /**
+     * Function the clears all the searching fields (including radio buttons and checkboxes)
+     */
     private void clearSearch()
     {
         radioGroup.clearCheck();
@@ -253,7 +249,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-
+    /**
+     * This function sets a query for Firebase when radio buttons were selected:
+     * when there is a search by Country/City we query that on the server side
+     * and the the checkboxes requirements will be filtered on the client side
+     * in the onChildAdded() func, with 'checkIfTripIsRelevant(trip)' func
+     * @param selectedItemsArr
+     */
     private void searchUserTrip(ArrayList<QueryDataObject> selectedItemsArr)
     {
         // make queries:
@@ -298,26 +300,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mTrips.clear();
             mAdapter.notifyDataSetChanged();
         }
-        // if we here - user selected only one of the check boxes
+        // if we here - user not selected radio buttons and selected at least one of the check boxes
         else
         {
+            //TODO: DELETE the commented code
             //check for each trip if it is still relevant
-            for(int i = mTrips.size() - 1; i >= 0; i--)
-            {
-                if(!checkIfTripIsRelevant(mTrips.get(i)))
-                {
-                    mTrips.remove(i);
-                    mAdapter.notifyItemRemoved(i);
-                }
-            }
+//            for(int i = mTrips.size() - 1; i >= 0; i--)
+//            {
+//                if(!checkIfTripIsRelevant(mTrips.get(i)))
+//                {
+//                    mTrips.remove(i);
+//                    mAdapter.notifyItemRemoved(i);
+//                }
+//            }
+
+            // clear the arrayList and get it fresh again
+            // then the results will bee filtered in the onChildAdded() func
+            // with 'checkIfTripIsRelevant(trip)' func
+            mTrips.clear();
+            addListenerForFirebase();
 
         }
 
 
-        // if we got here - we sure that the user selected some of the search options
-//        mAdapter.notifyDataSetChanged();
-
     }
+
 
     private void addListenerForFirebase()
     {
@@ -327,12 +334,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 Trip trip = dataSnapshot.getValue(Trip.class);
 
+                // 'checkIfTripIsRelevant()' is filtering the trips that are not relevant according
+                // the check-boxes
                 if(checkIfTripIsRelevant(trip))
                 {
                     trip.setId(dataSnapshot.getKey());
+
                     mTrips.add(trip);
-                    //notifyItemInserted(mTrips.size()-1);
-                    //mAdapter.notifyItemInserted(mTrips.size()-1);
                     mAdapter.notifyDataSetChanged();
                 }
 
@@ -364,6 +372,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+    /**
+     * This function filtering checks if the 'trip' is relevant according the check-boxes
+     * @param trip - the trip to check
+     * @return true if the trip is relevant for the user search
+     */
     private boolean checkIfTripIsRelevant(Trip trip)
     {
         boolean isRelevantTrip = true;
@@ -585,7 +598,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
     }
-
 
 
 
