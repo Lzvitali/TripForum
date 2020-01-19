@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -27,6 +28,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.OnProgressListener;
@@ -50,6 +53,9 @@ public class AddNewTrip extends AppSuperClass
     static final String EXTRA_IMAGE_URI_FOR_UPLOAD_SERVICE = "image for upload";
     static final String EXTRA_FLAG_FOR_UPLOAD_SERVICE = "flag for upload";  // 'true' if there is image
                                                                             // 'false if no image
+
+    static final String EXTRA_TRIP = "Trip";
+    static final String EXTRA_CLASS_TO_RETURN = "class to return";
 
     // members
     private FirebaseDatabase mFirebaseDatabase;
@@ -92,6 +98,9 @@ public class AddNewTrip extends AppSuperClass
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_trip);
+
+        // for the 'Back button' in the title (action) bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // disable opening of the keyboard automatically when Activity starts
         // reference: https://stackoverflow.com/questions/4149415/onscreen-keyboard-opens-automatically-when-activity-starts
@@ -145,6 +154,35 @@ public class AddNewTrip extends AppSuperClass
 
 
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            // for the 'Back button' in the title (action) bar
+            case android.R.id.home:
+                Intent intent = getIntent();
+                String classToReturn = (String) intent.getSerializableExtra(EXTRA_CLASS_TO_RETURN);
+
+                if(classToReturn.equals("MainActivity"))
+                {
+                    Intent i = new Intent(this, MainActivity.class);
+                    startActivity(i);
+                }
+                else if(classToReturn.equals("MyPostsActivity"))
+                {
+                    Intent i = new Intent(this, MyPostsActivity.class);
+                    startActivity(i);
+                }
+
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     /**
      * Function that do all the 'findViewById' for the needed views
@@ -306,6 +344,14 @@ public class AddNewTrip extends AppSuperClass
             // make the upload of the 'Trip' with service
             Intent serviceIntent = new Intent(this, TripUploadService.class);
             serviceIntent.putExtra(EXTRA_FLAG_FOR_UPLOAD_SERVICE, mIsUploadedPicture);
+
+            // get the user Uid
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null)
+            {
+                String uid = user.getUid();
+                mNewTrip.setUserUid(uid);
+            }
 
             // upload the photo (if user uploaded)
             if(mIsUploadedPicture)

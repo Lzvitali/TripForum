@@ -1,58 +1,60 @@
 package com.lzvitali.tripforum;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 
-public class FavoritesPostsActivity extends AppSuperClass
+public class MyPostsActivity extends AppCompatActivity
 {
+    public static final String SHARED_PREFS = "sharedPrefs";
+
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
-    public static final String SHARED_PREFS = "sharedPrefs";
-    private SharedPreferences mSharedPreferences;
-    private SharedPreferences.Editor editor;
-    ArrayList<Trip> mTrips;
-    private RecyclerView recyclerViewFavoritesActivity;
-    private RecyclerViewTripAdapter mAdapter;
     private ChildEventListener mChildListener;
+    ArrayList<Trip> mTrips;
 
-    private String mAllFavorites;
+    private RecyclerViewTripAdapter mAdapter;
+
+    private RecyclerView recyclerViewMyPostsActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favorites_posts);
+        setContentView(R.layout.activity_my_posts);
 
         // get FireBase references from 'FirebaseUtil'
         mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
         mDatabaseReference = FirebaseUtil.mDatabaseReference;
         this.mTrips = FirebaseUtil.mTrips;
 
-        recyclerViewFavoritesActivity = findViewById(R.id.recyclerViewFavoritesActivity);
+        recyclerViewMyPostsActivity = findViewById(R.id.recyclerViewMyPostsActivity);
 
         // for the 'Back button' in the title (action) bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // get all the id's of the favorites trips
-        mSharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        mAllFavorites = mSharedPreferences.getString("userFavorites", "");
 
-
-        mTrips.clear();
         initRecyclerView();
+
+        setQueryForUserPosts();
+
     }
 
 
@@ -72,14 +74,37 @@ public class FavoritesPostsActivity extends AppSuperClass
     }
 
 
-
     private void initRecyclerView()
     {
         addListenerForFirebase();
-        mAdapter = new RecyclerViewTripAdapter("FavoritesPostsActivity");
-        recyclerViewFavoritesActivity.setAdapter(mAdapter);
-        recyclerViewFavoritesActivity.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new RecyclerViewTripAdapter("MyPostsActivity");
+        recyclerViewMyPostsActivity.setAdapter(mAdapter);
+        recyclerViewMyPostsActivity.setLayoutManager(new LinearLayoutManager(this));
     }
+
+    /**
+     * This function will make a query for firebase to get all the posts of the current user
+     */
+    private void setQueryForUserPosts()
+    {
+        // get the user Uid
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null)
+        {
+            String uid = user.getUid();
+            Query queryForUserPosts =mDatabaseReference
+                    .orderByChild("userUid")
+                    .equalTo(uid);
+
+            queryForUserPosts.addChildEventListener(mChildListener);
+
+            Log.i("myPosts", "uid: " + uid);
+            mTrips.clear();
+            mAdapter.notifyDataSetChanged();
+        }
+
+    }
+
 
     private void addListenerForFirebase()
     {
@@ -91,12 +116,8 @@ public class FavoritesPostsActivity extends AppSuperClass
 
                 trip.setId(dataSnapshot.getKey());
 
-                // check if the 'id' of the trip is in the favorites
-                if(mAllFavorites.contains(trip.getId().toString()))
-                {
-                    mTrips.add(trip);
-                    mAdapter.notifyDataSetChanged();
-                }
+                mTrips.add(trip);
+                mAdapter.notifyDataSetChanged();
 
             }
 
@@ -121,7 +142,7 @@ public class FavoritesPostsActivity extends AppSuperClass
 
             }
         };
-        mDatabaseReference.addChildEventListener(mChildListener);
+//        mDatabaseReference.addChildEventListener(mChildListener);
     }
 
 }

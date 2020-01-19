@@ -29,4 +29,5 @@
     <string name="activity_main_cultural">Cultural</string>
     <string name="activity_main_city">City</string>
     <string name="activity_favorites_posts_favorites">Favorites</string>
+    <string name="activity_my_posts_my_posts">My Posts</string>
 </resources>

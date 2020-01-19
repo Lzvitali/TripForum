@@ -128,11 +128,25 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
         @Override
         public void onClick(View v)
         {
-            Trip tripToShow = mTrips.get(getAdapterPosition());
-            Intent intent = new Intent(v.getContext(), TripDescriptionActivity.class);
-            intent.putExtra(EXTRA_TRIP, tripToShow);
-            intent.putExtra(EXTRA_CLASS_TO_RETURN, mClassToReturn);
-            v.getContext().startActivity(intent);//open activity and send object to this activity
+            if(mClassToReturn.equals("MainActivity") || mClassToReturn.equals("FavoritesPostsActivity")
+            || mClassToReturn.equals("MyPostsActivity"))
+            {
+                Trip tripToShow = mTrips.get(getAdapterPosition());
+                Intent intent = new Intent(v.getContext(), TripDescriptionActivity.class);
+                intent.putExtra(EXTRA_TRIP, tripToShow);
+                intent.putExtra(EXTRA_CLASS_TO_RETURN, mClassToReturn);
+                v.getContext().startActivity(intent);//open activity and send object to this activity
+            }
+            // TODO: For future development - make the option to update trips
+//            else if(mClassToReturn.equals("MyPostsActivity"))
+//            {
+//                Trip tripToShow = mTrips.get(getAdapterPosition());
+//                Intent intent = new Intent(v.getContext(), AddNewTrip.class);
+//                intent.putExtra(EXTRA_TRIP, tripToShow);
+//                intent.putExtra(EXTRA_CLASS_TO_RETURN, mClassToReturn);
+//                v.getContext().startActivity(intent);//open activity and send object to this activity
+//            }
+
         }
     }
     // End: Inner class: TripViewHolder------------------------------------------------------------

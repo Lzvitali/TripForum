@@ -45,6 +45,7 @@ public class MainActivity extends AppSuperClass implements NavigationView.OnNavi
 {
 
     private static final int RC_SIGN_IN = 123;
+    static final String EXTRA_CLASS_TO_RETURN = "class to return";
 
 
     private DrawerLayout mDrawerLayout;
@@ -529,17 +530,28 @@ public class MainActivity extends AppSuperClass implements NavigationView.OnNavi
                 {
                     openActivityAddNewTrip();
                 }
-
                 return true;
             case R.id.nav_my_posts:
-                //TODO add action
-                item.setCheckable(true);
-                //return true;
+                FirebaseUtil.checkIfuserConnected();
+                if(!FirebaseUtil.isUserConnected)
+                {
+                    new DialogForLogin("Alert").show(getSupportFragmentManager(),null);
+                }
+                else
+                {
+                    Intent i1 = new Intent(this, MyPostsActivity.class);
+                    mDrawerLayout.closeDrawer(GravityCompat.START);  // hide the Navigation menu
+                    mSelectedItemFromNavigation.setCheckable(true);  // mark the selection
+                    startActivity(i1);
+                    item.setCheckable(true);
+                }
+
+                return true;
             case R.id.nav_favorites:
-                Intent i = new Intent(this, FavoritesPostsActivity.class);
+                Intent i2 = new Intent(this, FavoritesPostsActivity.class);
                 mDrawerLayout.closeDrawer(GravityCompat.START);  // hide the Navigation menu
                 mSelectedItemFromNavigation.setCheckable(true);  // mark the selection
-                startActivity(i);
+                startActivity(i2);
                 return true;
         }
 
@@ -550,6 +562,8 @@ public class MainActivity extends AppSuperClass implements NavigationView.OnNavi
     public void openActivityAddNewTrip()
     {
         Intent i = new Intent(this, AddNewTrip.class);
+        i.putExtra(EXTRA_CLASS_TO_RETURN, "MainActivity");
+
         mDrawerLayout.closeDrawer(GravityCompat.START);  // hide the Navigation menu
         mSelectedItemFromNavigation.setCheckable(true);  // mark the selection
         startActivity(i);

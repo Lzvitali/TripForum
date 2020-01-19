@@ -17,6 +17,7 @@ public class Trip implements Serializable
     private String tripDescription;
     private String imageUrl;
     private String imageName;
+    private String userUid;  // the ID that firebase is giving to the users
 
 
     // ----------------------------------- Constructors -------------------------------------------
@@ -96,6 +97,10 @@ public class Trip implements Serializable
     public String getImageName() {
         return imageName;
     }
+
+    public String getUserUid() {
+        return userUid;
+    }
     // End: Getters ----------------------------------------------------------------------------
 
 
@@ -150,6 +155,10 @@ public class Trip implements Serializable
 
     public void setImageName(String imageName) {
         this.imageName = imageName;
+    }
+
+    public void setUserUid(String uid) {
+        this.userUid = uid;
     }
     // End: Setters ----------------------------------------------------------------------------
 

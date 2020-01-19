@@ -94,6 +94,12 @@ public class TripDescriptionActivity extends AppSuperClass
                     Intent i = new Intent(this, FavoritesPostsActivity.class);
                     startActivity(i);
                 }
+                else if(classToReturn.equals("MyPostsActivity"))
+                {
+                    Intent i = new Intent(this, MyPostsActivity.class);
+                    startActivity(i);
+                }
+
                 return true;
         }
 
@@ -222,7 +228,7 @@ public class TripDescriptionActivity extends AppSuperClass
         mEditor.apply();
         // Log.i("favorite", "Added -- " + mAllFavorites);
         //Toast.makeText(this, "Data saved to Favorites!", Toast.LENGTH_SHORT).show();
-}
+    }
 
 
     /**

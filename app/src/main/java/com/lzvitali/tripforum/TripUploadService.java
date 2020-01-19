@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.IBinder;
 import android.util.Log;
@@ -15,6 +16,8 @@ import androidx.core.app.NotificationCompat;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,6 +26,8 @@ import com.google.firebase.storage.UploadTask;
 
 import static com.lzvitali.tripforum.App.CHANNEL_ID;
 
+// reference for learning about services:
+// https://codinginflow.com/tutorials/android/foreground-service
 
 public class TripUploadService extends Service
 {
@@ -33,6 +38,11 @@ public class TripUploadService extends Service
     static final String EXTRA_FLAG_FOR_UPLOAD_SERVICE = "flag for upload";  // 'true' if there is image
                                                                             // 'false if no image
 
+    public static final String SHARED_PREFS = "sharedPrefs";
+    private String mMyPosts;
+    private SharedPreferences.Editor mEditor;
+    private SharedPreferences mSharedPreferences;
+
     Trip mTripToUpload;
     Uri mImageUri;
     boolean mIsUploadedPicture;
@@ -42,6 +52,11 @@ public class TripUploadService extends Service
     {
         // get Firebase reference from 'FirebaseUtil'
         mDatabaseReference = FirebaseUtil.mDatabaseReference;
+
+        // get all the id's of the trips from Shared Preferences
+        mSharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        mMyPosts = mSharedPreferences.getString("userPosts", "");
+
         super.onCreate();
     }
 
@@ -91,9 +106,6 @@ public class TripUploadService extends Service
                         // write the new trip to Firebase DB
                         writeToFireBaseDB();
 
-                        // stop the service
-                        stopSelf();
-
                     } else {
                         // Handle failures
                         // ...
@@ -107,8 +119,6 @@ public class TripUploadService extends Service
             // write the new trip to Firebase (when no image was uploaded)
             writeToFireBaseDB();
 
-            // stop the service
-            stopSelf();
         }
 
 
@@ -125,6 +135,7 @@ public class TripUploadService extends Service
 
         return START_NOT_STICKY;
     }
+
 
     @Override
     public void onDestroy()
@@ -147,11 +158,45 @@ public class TripUploadService extends Service
         // write to Firebase
         if(mTripToUpload.getId() == null)
         {
-            mDatabaseReference.push().setValue(mTripToUpload);
+            mDatabaseReference.push().setValue(mTripToUpload)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid)
+                        {
+                            // Write was successful!
+
+                            // stop the service
+                            stopSelf();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e)
+                        {
+                            // Write failed
+                            // ...
+                        }
+                    });
         }
         else
         {
-            mDatabaseReference.child(mTripToUpload.getId()).setValue(mTripToUpload);
+            mDatabaseReference.child(mTripToUpload.getId()).setValue(mTripToUpload)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            // Write was successful!
+
+                            // stop the service
+                            stopSelf();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // Write failed
+                            // ...
+                        }
+                    });
         }
 
         // through a toast for the user
@@ -161,4 +206,7 @@ public class TripUploadService extends Service
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
+
+
+
 }
