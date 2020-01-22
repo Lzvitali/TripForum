@@ -158,6 +158,7 @@ public class TripUploadService extends Service
         // write to Firebase
         if(mTripToUpload.getId() == null)
         {
+            // reference: https://firebase.google.com/docs/database/android/read-and-write
             mDatabaseReference.push().setValue(mTripToUpload)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

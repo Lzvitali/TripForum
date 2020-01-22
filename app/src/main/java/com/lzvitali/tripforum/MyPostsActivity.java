@@ -28,9 +28,9 @@ public class MyPostsActivity extends AppCompatActivity
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
     private ChildEventListener mChildListener;
-    ArrayList<Trip> mTrips;
+    private static ArrayList<Trip> mTrips;
 
-    private RecyclerViewTripAdapter mAdapter;
+    private static RecyclerViewTripAdapter mAdapter;
 
     private RecyclerView recyclerViewMyPostsActivity;
 
@@ -143,6 +143,17 @@ public class MyPostsActivity extends AppCompatActivity
             }
         };
 //        mDatabaseReference.addChildEventListener(mChildListener);
+    }
+
+
+    /**
+     * This function removes trip in position number pos
+     * @param pos - position number
+     */
+    public static void removeItemInPos(int pos)
+    {
+        mTrips.remove(pos);
+        mAdapter.notifyItemRemoved(pos);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.lzvitali.tripforum;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.text.Html;
@@ -10,16 +11,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -31,6 +40,7 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
     ArrayList<Trip> mTrips;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
+    private FirebaseStorage mStorage;
     String mClassToReturn;
 
 
@@ -42,6 +52,7 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
         mDatabaseReference = FirebaseUtil.mDatabaseReference;
         this.mTrips = FirebaseUtil.mTrips;
         this.mClassToReturn = classToReturn;
+        this.mStorage = FirebaseUtil.mStorage;
 
     }
     // End: Constructor----------------------------------------------------------------------------
@@ -49,6 +60,7 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
 
     // -------------------------- Inner class: TripViewHolder--------------------------------------
     public class TripViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+            , View.OnLongClickListener
     {
         TextView textViewTripName;
         TextView textViewTripCities;
@@ -69,6 +81,7 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
             linearLayoutRow = (LinearLayout) itemView.findViewById(R.id.linearLayoutRow);
 
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
 
@@ -147,6 +160,22 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
 //                v.getContext().startActivity(intent);//open activity and send object to this activity
 //            }
 
+        }
+
+        @Override
+        public boolean onLongClick(View v)
+        {
+
+
+            if(mClassToReturn.equals("MyPostsActivity"))
+            {
+                Context thisContext = v.getContext();
+                Trip tripToDelete = mTrips.get(getAdapterPosition());
+                new DialogForDeleteTrip("Alert", tripToDelete, getAdapterPosition()).show(((AppCompatActivity)thisContext).getSupportFragmentManager(),null);
+
+
+            }
+            return false;
         }
     }
     // End: Inner class: TripViewHolder------------------------------------------------------------
