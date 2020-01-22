@@ -27,7 +27,7 @@
 
             <TextView
                 android:id="@+id/textViewCountryTripDescrip"
-                android:layout_width="309dp"
+                android:layout_width="278dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:text="Trip to Italy"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:text="Cities: Rome, Pisa, Milano."
             android:textColor="@android:color/black"
-            android:textSize="22sp" />
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/textViewDurationTripDescrip"
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:text="Duration: 8 days."
             android:textColor="@android:color/black"
-            android:textSize="22sp" />
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/textViewCategoriesTripDescrip"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:text="Categories: Family and Vacation trip."
             android:textColor="@android:color/black"
-            android:textSize="22sp" />
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/textViewDescriptionTripDescrip"
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:text="Description: Rome is the capital city and a special comune of Italy. Rome also serves as the capital of the Lazio region. With 2,879,728 residents in 1,285 km², it is also the country's most populated comune. It is the fourth most populous city in the European Union by population within city limits."
             android:textColor="@android:color/black"
-            android:textSize="22sp" />
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/textViewByTripDescrip"
@@ -83,14 +83,15 @@
             android:layout_height="wrap_content"
             android:text="By: Nata."
             android:textColor="@android:color/black"
-            android:textSize="22sp" />
+            android:textSize="18dp" />
+
         <TextView
             android:id="@+id/textViewEmailTripDescrip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Email: Nata@gmail.com."
             android:textColor="@android:color/black"
-            android:textSize="22sp" />
+            android:textSize="18dp" />
 
         <ImageView
             android:id="@+id/imageViewTripDescrip"

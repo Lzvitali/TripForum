@@ -50,8 +50,10 @@ public class FavoritesPostsActivity extends AppSuperClass
         mSharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         mAllFavorites = mSharedPreferences.getString("userFavorites", "");
 
-
-        mTrips.clear();
+        if(mTrips != null)
+        {
+            mTrips.clear();
+        }
         initRecyclerView();
     }
 

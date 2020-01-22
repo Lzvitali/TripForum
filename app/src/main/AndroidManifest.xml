@@ -36,6 +36,7 @@
         </activity>
 
         <service android:name=".TripUploadService" />
-    </application>
 
+    </application>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 </manifest>

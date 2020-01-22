@@ -74,7 +74,7 @@
 
                     <RadioButton
                         android:id="@+id/radioButtonCity"
-                        android:layout_width="83dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:text="@string/activity_main_city"
                         android:textStyle="bold" />
@@ -213,7 +213,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewMainActivity"
             android:layout_width="match_parent"
-            android:layout_height="300dp" />
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

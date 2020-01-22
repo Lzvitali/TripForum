@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_add_new_trip_country"
                 android:textColor="#000000"
-                android:textSize="24sp"
+                android:textSize="20dp"
                 android:textStyle="bold" />
 
             <EditText
@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:textSize="20sp"
+                android:textSize="18dp"
                 tools:text="" />
         </LinearLayout>
 
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_add_new_trip_cities"
                 android:textColor="@android:color/black"
-                android:textSize="24sp"
+                android:textSize="20dp"
                 android:textStyle="bold" />
 
             <EditText
@@ -73,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:textSize="20sp"
+                android:textSize="18dp"
                 tools:text="" />
         </LinearLayout>
 
@@ -93,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:textSize="20sp"
+                android:textSize="18dp"
                 tools:text="" />
         </LinearLayout>
 
@@ -113,7 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:textSize="20sp"
+                android:textSize="18dp"
                 tools:text="" />
         </LinearLayout>
 
@@ -128,17 +128,17 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_add_new_trip_duration"
                 android:textColor="@android:color/black"
-                android:textSize="24sp"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 android:tooltipText="Duration in days" />
 
             <EditText
                 android:id="@+id/editTextDuration"
-                android:layout_width="176dp"
+                android:layout_width="161dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:paddingStart="5dp"
-                android:textSize="20sp"
+                android:textSize="18dp"
                 tools:text="" />
 
             <TextView
@@ -147,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:text="(days)"
                 android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:textSize="16dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -162,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_add_new_trip_categories"
                 android:textColor="@android:color/black"
-                android:textSize="24sp"
+                android:textSize="20dp"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -199,7 +199,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_add_new_trip_your_name"
                 android:textColor="@android:color/black"
-                android:textSize="24sp"
+                android:textSize="20dp"
                 android:textStyle="bold" />
 
             <EditText
@@ -208,7 +208,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:paddingStart="5dp"
-                android:textSize="20sp"
+                android:textSize="18dp"
                 tools:text="" />
 
         </LinearLayout>
@@ -224,7 +224,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_add_new_trip_your_email"
                 android:textColor="@android:color/black"
-                android:textSize="24sp"
+                android:textSize="20dp"
                 android:textStyle="bold" />
 
             <EditText
@@ -233,7 +233,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:paddingStart="5dp"
-                android:textSize="20sp"
+                android:textSize="18dp"
                 tools:text="" />
         </LinearLayout>
 
@@ -243,7 +243,7 @@
             android:layout_height="wrap_content"
             android:text="Your Trip:"
             android:textColor="@android:color/black"
-            android:textSize="24sp"
+            android:textSize="20dp"
             android:textStyle="bold" />
 
         <EditText

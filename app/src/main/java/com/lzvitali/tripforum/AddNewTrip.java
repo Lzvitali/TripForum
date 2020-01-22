@@ -247,8 +247,8 @@ public class AddNewTrip extends AppSuperClass
         {
             errorToReport = "You must fill the 'Country' field!";
             textViewCountryNameAddTrip.setTextColor(Color.parseColor("#FFFF0000"));
-        }
-        else if(!strEditTextCountry.matches("[a-zA-Z]+"))  //check if 'country' name contains numbers
+        } // was: [a-zA-Z]+  reference for change: https://stackoverflow.com/questions/24191040/checking-to-see-if-a-string-is-letters-spaces-only
+        else if(!strEditTextCountry.matches("^[ A-Za-z]+$"))  //check if 'country' name contains numbers
         {
             errorToReport = "'Country' name field must contain only letters!";
             textViewCountryNameAddTrip.setTextColor(Color.parseColor("#FFFF0000"));
@@ -264,9 +264,9 @@ public class AddNewTrip extends AppSuperClass
                 errorToReport = "You must fill the first 'City' field!";
                 textViewCitesAddTrip.setTextColor(Color.parseColor("#FFFF0000"));
             }
-            else if(!strEditTextCity1.matches("[a-zA-Z]+")
-                    || ( !strEditTextCity2.equals("") && !strEditTextCity2.matches("[a-zA-Z]+") )
-                    || ( !strEditTextCity3.equals("") && !strEditTextCity3.matches("[a-zA-Z]+")) )
+            else if(!strEditTextCity1.matches("^[ A-Za-z]+$")
+                    || ( !strEditTextCity2.equals("") && !strEditTextCity2.matches("^[ A-Za-z]+$") )
+                    || ( !strEditTextCity3.equals("") && !strEditTextCity3.matches("^[ A-Za-z]+$")) )
             {
                 errorToReport = "'City' name field must contain only letters!";
                 textViewCitesAddTrip.setTextColor(Color.parseColor("#FFFF0000"));
@@ -295,7 +295,7 @@ public class AddNewTrip extends AppSuperClass
                     // ------------ check 'strEditTextUserName' ------------
                     if(!strEditTextCountry.matches("[a-zA-Z]+"))  //check if 'user' name contains numbers
                     {
-                        errorToReport = "'Yor name' name field must contain only letters!";
+                        errorToReport = "'Your name' name field must contain only letters!";
                         textViewUserNameAddTrip.setTextColor(Color.parseColor("#FFFF0000"));
                     }
                     else
@@ -333,6 +333,20 @@ public class AddNewTrip extends AppSuperClass
             buttonPost.setEnabled(false);
             buttonCancel.setEnabled(false);
             buttonAddPhoto.setEnabled(false);
+
+            // Capitalize the first letter
+            // reference: https://stackoverflow.com/questions/3904579/how-to-capitalize-the-first-letter-of-a-string-in-java
+            strEditTextCountry = strEditTextCountry.substring(0, 1).toUpperCase() + strEditTextCountry.substring(1);
+            strEditTextCity1 = strEditTextCity1.substring(0, 1).toUpperCase() + strEditTextCity1.substring(1);
+            if(!strEditTextCity2.equals(""))
+            {
+                strEditTextCity2 = strEditTextCity2.substring(0, 1).toUpperCase() + strEditTextCity2.substring(1);
+            }
+            if(!strEditTextCity3.equals(""))
+            {
+                strEditTextCity3 = strEditTextCity3.substring(0, 1).toUpperCase() + strEditTextCity3.substring(1);
+            }
+
 
             // construct the 'Trip' instance
             mNewTrip = new Trip(strEditTextCountry, strEditTextCity1, strEditTextCity2,

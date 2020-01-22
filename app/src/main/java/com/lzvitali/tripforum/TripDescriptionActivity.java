@@ -152,7 +152,7 @@ public class TripDescriptionActivity extends AppSuperClass
         String userEmail = "<b>" + "Email: " + "</b>" + mTripToShow.getUserEmail();
         if(  mTripToShow.getUserEmail().equals(""))
         {
-            userEmail = "<b>" + "Email: " + "</b>" + "anonymous@gmail.com";
+            userEmail = "";
         }
         textViewEmailTripDescrip.setText( Html.fromHtml(userEmail, Build.VERSION.SDK_INT));
 

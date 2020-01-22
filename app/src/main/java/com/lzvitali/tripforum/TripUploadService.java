@@ -66,8 +66,10 @@ public class TripUploadService extends Service
     {
 
         // get information from the intent
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,
+        // reference for getApplicationContext() :
+        // https://stackoverflow.com/questions/25685993/pass-context-to-service-with-putextra
+        Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),
                 0, notificationIntent, 0);
         mTripToUpload = (Trip) intent.getSerializableExtra(EXTRA_TRIP_FOR_UPLOAD_SERVICE);
         mIsUploadedPicture = (Boolean)intent.getBooleanExtra(EXTRA_FLAG_FOR_UPLOAD_SERVICE, false);
@@ -123,7 +125,7 @@ public class TripUploadService extends Service
 
 
 
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+        Notification notification = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
                 .setContentTitle("Trip uploading")
                 .setContentText("your trip is uploading to the data-base")
                 .setSmallIcon(R.drawable.ic_upload_trip)
@@ -201,10 +203,10 @@ public class TripUploadService extends Service
         }
 
         // through a toast for the user
-        Toast.makeText(this, "Your trip uploaded successfully!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Your trip uploaded successfully!", Toast.LENGTH_LONG).show();
 
         // go back to 'MainActivity'
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
     }
 
