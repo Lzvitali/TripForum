@@ -91,6 +91,10 @@ public class DialogForDeleteTrip extends DialogFragment
                         }
                     });
                 }
+                else
+                {
+                    Toast.makeText((AppCompatActivity)mContext, "Your post has been deleted from the App!", Toast.LENGTH_LONG).show();
+                }
 
                 MyPostsActivity.removeItemInPos(mPosition);
 
