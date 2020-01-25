@@ -5,8 +5,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -90,7 +92,16 @@ public class AddNewTrip extends AppSuperClass
 
     private ImageView imageViewPhotoIndicator;
 
+    // for getting back from the service to this activity
+    // reference: https://www.codeproject.com/Questions/483247/Close-2ffinishplusanplusactivityplusfromplusbackgr
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
 
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
+        }
+
+    };
 
 
     @Override
@@ -98,6 +109,9 @@ public class AddNewTrip extends AppSuperClass
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_trip);
+
+        // for getting back from the service to this activity
+        registerReceiver(mMessageReceiver, new IntentFilter("service finished"));
 
         // for the 'Back button' in the title (action) bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -163,20 +177,7 @@ public class AddNewTrip extends AppSuperClass
         {
             // for the 'Back button' in the title (action) bar
             case android.R.id.home:
-                Intent intent = getIntent();
-                String classToReturn = (String) intent.getSerializableExtra(EXTRA_CLASS_TO_RETURN);
-
-                if(classToReturn.equals("MainActivity"))
-                {
-                    Intent i = new Intent(this, MainActivity.class);
-                    startActivity(i);
-                }
-                else if(classToReturn.equals("MyPostsActivity"))
-                {
-                    Intent i = new Intent(this, MyPostsActivity.class);
-                    startActivity(i);
-                }
-
+                finish();
                 return true;
         }
 
@@ -522,4 +523,14 @@ public class AddNewTrip extends AppSuperClass
 
     }
     // End: functions for the spinners -------------------------------------------------------------
+
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        unregisterReceiver(mMessageReceiver);
+    }
+
+
 }

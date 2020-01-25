@@ -159,7 +159,7 @@ public class MainActivity extends AppSuperClass implements NavigationView.OnNavi
 
     private void initRecyclerView()
     {
-        addListenerForFirebase();
+        // addListenerForFirebase();  // commented this line because we do it in the onResume() func
         mAdapter = new RecyclerViewTripAdapter("MainActivity");
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -614,5 +614,15 @@ public class MainActivity extends AppSuperClass implements NavigationView.OnNavi
     }
 
 
+    /**
+     * Override this func for updating the recyclerView when getting back to this activity
+     */
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
 
+        // this function does the clear of the search and reset of the recyclerView
+        clearSearch();
+    }
 }

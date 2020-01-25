@@ -80,26 +80,9 @@ public class TripDescriptionActivity extends AppSuperClass
     {
         switch (item.getItemId())
         {
+            // for the 'Back button' in the title (action) bar
             case android.R.id.home:
-                Intent intent = getIntent();
-                String classToReturn = (String) intent.getSerializableExtra(EXTRA_CLASS_TO_RETURN);
-
-                if(classToReturn.equals("MainActivity"))
-                {
-                    Intent i = new Intent(this, MainActivity.class);
-                    startActivity(i);
-                }
-                else if(classToReturn.equals("FavoritesPostsActivity"))
-                {
-                    Intent i = new Intent(this, FavoritesPostsActivity.class);
-                    startActivity(i);
-                }
-                else if(classToReturn.equals("MyPostsActivity"))
-                {
-                    Intent i = new Intent(this, MyPostsActivity.class);
-                    startActivity(i);
-                }
-
+                finish();
                 return true;
         }
 

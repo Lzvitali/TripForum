@@ -48,7 +48,9 @@ public class FavoritesPostsActivity extends AppSuperClass
 
         // get all the id's of the favorites trips
         mSharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        mAllFavorites = mSharedPreferences.getString("userFavorites", "");
+
+        // commented this line because we do it in the onResume() func
+//        mAllFavorites = mSharedPreferences.getString("userFavorites", "");
 
         if(mTrips != null)
         {
@@ -65,8 +67,7 @@ public class FavoritesPostsActivity extends AppSuperClass
         {
             // for the 'Back button' in the title (action) bar
             case android.R.id.home:
-                Intent i = new Intent(this, MainActivity.class);
-                startActivity(i);
+                finish();
                 return true;
         }
 
@@ -77,7 +78,7 @@ public class FavoritesPostsActivity extends AppSuperClass
 
     private void initRecyclerView()
     {
-        addListenerForFirebase();
+        // addListenerForFirebase();  // commented this line because we do it in the onResume() func
         mAdapter = new RecyclerViewTripAdapter("FavoritesPostsActivity");
         recyclerViewFavoritesActivity.setAdapter(mAdapter);
         recyclerViewFavoritesActivity.setLayoutManager(new LinearLayoutManager(this));
@@ -124,6 +125,27 @@ public class FavoritesPostsActivity extends AppSuperClass
             }
         };
         mDatabaseReference.addChildEventListener(mChildListener);
+    }
+
+
+
+    /**
+     * Override this func for updating the recyclerView when getting back to this activity
+     */
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        // update to the string that holds all the id's of the favorites
+        mAllFavorites = mSharedPreferences.getString("userFavorites", "");
+
+        // reset the recycleView
+        if(mTrips != null)
+        {
+            mTrips.clear();
+        }
+        addListenerForFirebase();
     }
 
 }

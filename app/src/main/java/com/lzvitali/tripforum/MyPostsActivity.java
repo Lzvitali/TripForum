@@ -53,7 +53,7 @@ public class MyPostsActivity extends AppCompatActivity
 
         initRecyclerView();
 
-        setQueryForUserPosts();
+        // setQueryForUserPosts();  // commented this line because we do it in the onResume() func
 
     }
 
@@ -65,8 +65,7 @@ public class MyPostsActivity extends AppCompatActivity
         {
             // for the 'Back button' in the title (action) bar
             case android.R.id.home:
-                Intent i = new Intent(this, MainActivity.class);
-                startActivity(i);
+                finish();
                 return true;
         }
 
@@ -76,7 +75,7 @@ public class MyPostsActivity extends AppCompatActivity
 
     private void initRecyclerView()
     {
-        addListenerForFirebase();
+        // addListenerForFirebase();  // commented this line because we do it in the onResume() func
         mAdapter = new RecyclerViewTripAdapter("MyPostsActivity");
         recyclerViewMyPostsActivity.setAdapter(mAdapter);
         recyclerViewMyPostsActivity.setLayoutManager(new LinearLayoutManager(this));
@@ -148,12 +147,31 @@ public class MyPostsActivity extends AppCompatActivity
 
     /**
      * This function removes trip in position number pos
-     * @param pos - position number
+     * @param pos  position number
      */
     public static void removeItemInPos(int pos)
     {
         mTrips.remove(pos);
         mAdapter.notifyItemRemoved(pos);
+    }
+
+
+    /**
+     * Override this func for updating the recyclerView when getting back to this activity
+     */
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        // reset the recycleView
+        if(mTrips != null)
+        {
+            mTrips.clear();
+        }
+        addListenerForFirebase();
+
+        setQueryForUserPosts();
     }
 
 }

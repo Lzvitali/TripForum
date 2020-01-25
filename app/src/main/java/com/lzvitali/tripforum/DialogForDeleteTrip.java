@@ -75,7 +75,7 @@ public class DialogForDeleteTrip extends DialogFragment
                         public void onSuccess(Void aVoid) {
                             // File deleted successfully
                             // TODO: find way to add a toast
-                            //Toast.makeText(thisContext, "Your post has been deleted from the App!", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(this, "Your post has been deleted from the App!", Toast.LENGTH_LONG).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override

@@ -168,6 +168,13 @@ public class TripUploadService extends Service
                         {
                             // Write was successful!
 
+                            // through a toast for the user
+                            Toast.makeText(getApplicationContext(), "Your trip uploaded successfully!", Toast.LENGTH_LONG).show();
+
+                            // finish service and go back to the activity
+                            Intent intent1 = new Intent("service finished");
+                            sendBroadcast(intent1);
+
                             // stop the service
                             stopSelf();
                         }
@@ -189,6 +196,13 @@ public class TripUploadService extends Service
                         public void onSuccess(Void aVoid) {
                             // Write was successful!
 
+                            // through a toast for the user
+                            Toast.makeText(getApplicationContext(), "Your trip uploaded successfully!", Toast.LENGTH_LONG).show();
+
+                            // finish service and go back to the activity
+                            Intent intent1 = new Intent("service finished");
+                            sendBroadcast(intent1);
+
                             // stop the service
                             stopSelf();
                         }
@@ -202,12 +216,12 @@ public class TripUploadService extends Service
                     });
         }
 
-        // through a toast for the user
-        Toast.makeText(getApplicationContext(), "Your trip uploaded successfully!", Toast.LENGTH_LONG).show();
+//        // through a toast for the user
+//        Toast.makeText(getApplicationContext(), "Your trip uploaded successfully!", Toast.LENGTH_LONG).show();
 
-        // go back to 'MainActivity'
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(i);
+//        // go back to 'MainActivity'
+//        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+//        startActivity(i);
     }
 
 

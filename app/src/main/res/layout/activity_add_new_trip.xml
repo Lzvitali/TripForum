@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/b8_5"
-    android:padding="15dp"
+    android:paddingLeft="15dp"
+    android:paddingTop="15dp"
+    android:paddingRight="15dp"
     tools:context=".AddNewTrip"
     tools:layout_editor_absoluteX="20dp"
     tools:layout_editor_absoluteY="72dp">
@@ -14,8 +16,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="@color/TripDescriptionLayout"
+        android:orientation="vertical"
         android:padding="15dp"
         tools:layout_editor_absoluteX="10dp"
         tools:layout_editor_absoluteY="10dp">
@@ -269,8 +271,8 @@
                 android:id="@+id/imageViewPhotoIndicator"
                 android:layout_width="52dp"
                 android:layout_height="50dp"
+                android:layout_marginRight="10dp"
                 android:onClick="removePhoto"
-                android:layout_marginRight ="10dp"
                 app:srcCompat="@drawable/no_photo" />
 
             <Button
