@@ -184,7 +184,9 @@ public class TripUploadService extends Service
                         public void onFailure(@NonNull Exception e)
                         {
                             // Write failed
-                            // ...
+
+                            // stop the service
+                            stopSelf();
                         }
                     });
         }
@@ -211,7 +213,9 @@ public class TripUploadService extends Service
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             // Write failed
-                            // ...
+
+                            // stop the service
+                            stopSelf();
                         }
                     });
         }

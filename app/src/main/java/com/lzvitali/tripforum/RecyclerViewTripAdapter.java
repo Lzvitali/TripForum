@@ -38,9 +38,6 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
     static final String EXTRA_TRIP = "Trip";
     static final String EXTRA_CLASS_TO_RETURN = "class to return";
     ArrayList<Trip> mTrips;
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mDatabaseReference;
-    private FirebaseStorage mStorage;
     String mClassToReturn;
 
 
@@ -48,12 +45,8 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
     // -----------------------------------Constructor---------------------------------------------
     public RecyclerViewTripAdapter(String classToReturn)
     {
-        mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
-        mDatabaseReference = FirebaseUtil.mDatabaseReference;
         this.mTrips = FirebaseUtil.mTrips;
         this.mClassToReturn = classToReturn;
-        this.mStorage = FirebaseUtil.mStorage;
-
     }
     // End: Constructor----------------------------------------------------------------------------
 
@@ -80,6 +73,7 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
             imageViewTripPhoto = (ImageView)itemView.findViewById(R.id.imageViewTripPhoto);
             linearLayoutRow = (LinearLayout) itemView.findViewById(R.id.linearLayoutRow);
 
+            // set onClicks for itemView (itemView is the row in the recyclerView)
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }
@@ -165,13 +159,11 @@ public class RecyclerViewTripAdapter extends RecyclerView.Adapter<RecyclerViewTr
         @Override
         public boolean onLongClick(View v)
         {
-
-
             if(mClassToReturn.equals("MyPostsActivity"))
             {
                 Context thisContext = v.getContext();
                 Trip tripToDelete = mTrips.get(getAdapterPosition());
-                new DialogForDeleteTrip("Alert", tripToDelete, getAdapterPosition()).show(((AppCompatActivity)thisContext).getSupportFragmentManager(),null);
+                new DialogForDeleteTrip("Alert", tripToDelete, getAdapterPosition(), thisContext).show(((AppCompatActivity)thisContext).getSupportFragmentManager(),null);
 
 
             }

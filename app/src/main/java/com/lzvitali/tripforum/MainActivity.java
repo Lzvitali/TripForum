@@ -270,9 +270,14 @@ public class MainActivity extends AppSuperClass implements NavigationView.OnNavi
             // if it is 'countryName'
             if(firstParam.equals("countryName"))
             {
+                // Capitalize the first letter
+                // reference: https://stackoverflow.com/questions/3904579/how-to-capitalize-the-first-letter-of-a-string-in-java
+                String countryToQuery = selectedItemsArr.get(0).getValue();
+                countryToQuery = countryToQuery.substring(0, 1).toUpperCase() + countryToQuery.substring(1);
+
                 Query queryForCountry = FirebaseDatabase.getInstance().getReference("trips")
                         .orderByChild("countryName")
-                        .equalTo(selectedItemsArr.get(0).getValue());
+                        .equalTo(countryToQuery);
 
                 queryForCountry.addChildEventListener(mChildListener);
 
@@ -280,17 +285,22 @@ public class MainActivity extends AppSuperClass implements NavigationView.OnNavi
             // if it is city
             else
             {
+                // Capitalize the first letter
+                // reference: https://stackoverflow.com/questions/3904579/how-to-capitalize-the-first-letter-of-a-string-in-java
+                String cityToQuery = selectedItemsArr.get(0).getValue();
+                cityToQuery = cityToQuery.substring(0, 1).toUpperCase() + cityToQuery.substring(1);
+
                 Query queryForCity1 = FirebaseDatabase.getInstance().getReference("trips")
                         .orderByChild("city1")
-                        .equalTo(selectedItemsArr.get(0).getValue());
+                        .equalTo(cityToQuery);
 
                 Query queryForCity2 = FirebaseDatabase.getInstance().getReference("trips")
                         .orderByChild("city2")
-                        .equalTo(selectedItemsArr.get(1).getValue());
+                        .equalTo(cityToQuery);
 
                 Query queryForCity3 = FirebaseDatabase.getInstance().getReference("trips")
                         .orderByChild("city3")
-                        .equalTo(selectedItemsArr.get(2).getValue());
+                        .equalTo(cityToQuery);
 
                 queryForCity1.addChildEventListener(mChildListener);
                 queryForCity2.addChildEventListener(mChildListener);
@@ -460,6 +470,7 @@ public class MainActivity extends AppSuperClass implements NavigationView.OnNavi
         //set the menu
         mNavigationView = findViewById(R.id.navigation);
         mNavigationView.setNavigationItemSelectedListener(this);
+
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);

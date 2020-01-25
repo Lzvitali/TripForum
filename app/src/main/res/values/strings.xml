@@ -18,7 +18,7 @@
     <string name="activity_main_most_recent">Most Recent</string>
     <string name="activity_main_your_search_results">Your search results</string>
     <string name="activity_main_search_your_next_trip">Search your next trip</string>
-    <string name="activity_main_clear">Clear</string>
+    <string name="activity_main_clear">Clear Search</string>
     <string name="activity_main_family">Family</string>
     <string name="activity_main_young">Young</string>
     <string name="activity_main_adults">Adults</string>

@@ -72,24 +72,6 @@ public class FirebaseUtil
                         FirebaseUtil.signIn();
 
                     }
-                    else {
-//                        isUserConnected = true;
-                        //String userId = firebaseAuth.getUid();
-
-                        // Name, email of the user
-//                        String name = user.getDisplayName();
-//                        String email = user.getEmail();
-//
-//                        textViewUserName.setText("Hi, " + name);
-
-                        //Toast.makeText(caller.getBaseContext(), "Welcome!", Toast.LENGTH_LONG).show();
-
-//                        if(MainActivity.isAddNewTripPressed)
-//                        {
-//                            caller.openActivityAddNewTrip();
-//                        }
-
-                    }
 
                 }
             };

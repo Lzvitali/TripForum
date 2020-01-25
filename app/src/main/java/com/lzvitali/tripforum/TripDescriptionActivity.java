@@ -38,7 +38,6 @@ public class TripDescriptionActivity extends AppSuperClass
     private String mAllFavorites;
 
     public static final String SHARED_PREFS = "sharedPrefs";
-    public  String idToSaveForFavorites;
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
 
@@ -55,8 +54,21 @@ public class TripDescriptionActivity extends AppSuperClass
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getViews();
+
         setTripDescription();
 
+        // get the object SharedPreferences
+        mSharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+
+        // get the string of id's from SP
+        mAllFavorites = mSharedPreferences.getString("userFavorites", "");
+
+        // check if it must be "full heart" picture
+        if(mAllFavorites.contains(mTripToShow.getId().toString()))
+        {
+            buttonFavorites.setImageResource(R.drawable.ic_favorites);
+            buttonFavorites.setTag("favorite");
+        }
     }
 
 
@@ -141,14 +153,6 @@ public class TripDescriptionActivity extends AppSuperClass
 
         showImage(mTripToShow.getImageUrl());
 
-        //check if it must be "full heart" picture
-        mSharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        mAllFavorites = mSharedPreferences.getString("userFavorites", "");
-        if(mAllFavorites.contains(mTripToShow.getId().toString()))
-        {
-            buttonFavorites.setImageResource(R.drawable.ic_favorites);
-            buttonFavorites.setTag("favorite");
-        }
     }
 
     /**
@@ -177,7 +181,7 @@ public class TripDescriptionActivity extends AppSuperClass
     private void removeFromFavorites()
     {
        // SharedPreferences mSharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        mAllFavorites = mSharedPreferences.getString("userFavorites", "");
+        // mAllFavorites = mSharedPreferences.getString("userFavorites", "");  // NO NEED
         mEditor = mSharedPreferences.edit();
         String idToDelete= mTripToShow.getId().toString() + " ";
 
@@ -191,7 +195,6 @@ public class TripDescriptionActivity extends AppSuperClass
 
       //  Log.i("favorite", "Removed--  " + mAllFavorites);
 
-
     }
 
     /**
@@ -202,7 +205,7 @@ public class TripDescriptionActivity extends AppSuperClass
         mEditor = mSharedPreferences.edit();
 
         //save id of favorite trip in file. upload data from file and add new
-        mAllFavorites = mSharedPreferences.getString("userFavorites", "");
+        // mAllFavorites = mSharedPreferences.getString("userFavorites", "");  // NO NEED
         // Log.i("favorite", "Before Added -- " + mAllFavorites);
         mAllFavorites += mTripToShow.getId().toString();
         mAllFavorites += " ";

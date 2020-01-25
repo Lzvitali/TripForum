@@ -1,13 +1,16 @@
 package com.lzvitali.tripforum;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -25,6 +28,7 @@ public class DialogForDeleteTrip extends DialogFragment
     private DatabaseReference mDatabaseReference;
     private FirebaseStorage mStorage;
     int mPosition;
+    Context mContext;
 
 
     // default constructor
@@ -34,7 +38,7 @@ public class DialogForDeleteTrip extends DialogFragment
     }
 
     // another constructor
-    public DialogForDeleteTrip(String title, Trip tripToDelete, int pos)
+    public DialogForDeleteTrip(String title, Trip tripToDelete, int pos, Context context)
     {
         Bundle args = new Bundle();
         args.putString("TitleKey", title);
@@ -43,6 +47,8 @@ public class DialogForDeleteTrip extends DialogFragment
         mDatabaseReference = FirebaseUtil.mDatabaseReference;
         this.mStorage = FirebaseUtil.mStorage;
         this.mPosition = pos;
+
+        mContext = context;
 
         setArguments(args);
     }
@@ -74,8 +80,8 @@ public class DialogForDeleteTrip extends DialogFragment
                         @Override
                         public void onSuccess(Void aVoid) {
                             // File deleted successfully
-                            // TODO: find way to add a toast
-                            //Toast.makeText(this, "Your post has been deleted from the App!", Toast.LENGTH_LONG).show();
+
+                            Toast.makeText((AppCompatActivity)mContext, "Your post has been deleted from the App!", Toast.LENGTH_LONG).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
