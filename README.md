@@ -16,7 +16,7 @@ Trips can be searched by diffarent categories, such as: country/city name, trip 
 * Add trips to "Favorites".
 * Log in with your user (by e-mail or google account)
 * If user loged-in:
- * Add trip to the app (can be an anonymous post or not) 
+ 	* Add trip to the app (can be an anonymous post or not) 
 	* See "My Posts" and delete them from app - by long press and confirm of the alert(editing option is still not implemented)
 
 ### Screenshots
