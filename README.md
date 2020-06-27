@@ -20,6 +20,6 @@ Trips can be searched by different categories, such as: country/city name, trip 
 	* See "My Posts" and delete them from app - by long press and confirm of the alert (editing option is still not implemented)
 
 ### Screenshots
-<img src="https://github.com/Lzvitali/TripForum/blob/master/app/src/main/res/drawable-v24/final_look1.png" alt="TripForum" width="620" height="402"/>
-<img src="https://github.com/Lzvitali/TripForum/blob/master/app/src/main/res/drawable-v24/final_look2.png" alt="TripForum" width="620" height="402"/>
+<kbd><img src="https://github.com/Lzvitali/TripForum/blob/master/app/src/main/res/drawable-v24/final_look1.png" alt="TripForum" width="660" height="402"/></kbd>
+<kbd><img src="https://github.com/Lzvitali/TripForum/blob/master/app/src/main/res/drawable-v24/final_look2.png" alt="TripForum" width="660" height="402"/></kbd>
 
